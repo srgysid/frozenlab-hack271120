@@ -1,0 +1,186 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+
+        <item name="colorPrimary">@color/cyan</item>
+        <item name="colorPrimaryDark">@color/cyan</item>
+        <item name="colorAccent">@color/cyan</item>
+
+        <item name="android:textSize">@dimen/text_size_base</item>
+        <item name="android:textColor">@color/black</item>
+
+        <item name="android:fontFamily">@font/nunito_light</item>
+
+    </style>
+
+    <!-- Common text styles -->
+
+    <style name="AppTheme.TextRegular">
+        <item name="android:textSize">@dimen/text_size_base</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="AppTheme.CaptionBig">
+        <item name="android:textSize">@dimen/text_size_caption_big</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="AppTheme.CaptionRegular">
+        <item name="android:textSize">@dimen/text_size_caption_regular</item>
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+    </style>
+
+    <style name="AppTheme.CaptionSmall">
+        <item name="android:textSize">@dimen/text_size_caption_small</item>
+        <item name="android:fontFamily">@font/nunito_regular</item>
+    </style>
+
+    <style name="AppTheme.TextSmall">
+        <item name="android:textSize">@dimen/text_size_small</item>
+    </style>
+
+    <style name="AppTheme.TextOnColor">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- Specific text styles -->
+
+    <style name="AppTheme.TitleNavigationMenuItem" parent="AppTheme.CaptionRegular">
+        <item name="android:textColor">@color/gray_dark</item>
+    </style>
+
+    <style name="AppTheme.HintNavigationMenuItem" parent="AppTheme.TextSmall">
+        <item name="android:textColor">@color/gray_dark</item>
+    </style>
+
+    <style name="AppTheme.SelectableTextView">
+        <item name="android:paddingStart">@dimen/padding_big</item>
+        <item name="android:paddingEnd">@dimen/padding_big</item>
+        <item name="android:paddingTop">@dimen/padding_medium</item>
+        <item name="android:paddingBottom">@dimen/padding_medium</item>
+        <item name="android:drawableEnd">@drawable/ic_round_navigate_next_24</item>
+    </style>
+
+    <style name="AppTheme.MapLocationTitle">
+        <item name="android:textSize">@dimen/text_size_tiny</item>
+    </style>
+
+    <style name="AppTheme.Link">
+        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/cyan</item>
+        <item name="android:drawableTint">@color/cyan</item>
+    </style>
+
+    <style name="AppTheme.Label" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/reddish</item>
+    </style>
+
+    <style name="AppTheme.TabTitle" parent="AppTheme.CaptionSmall">
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Buttons -->
+    <style name="AppTheme.Button" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="cornerRadius">@dimen/cr_button</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textColor">@color/selector_button_text</item>
+        <item name="backgroundTint">@color/selector_button_background</item>
+    </style>
+
+    <style name="AppTheme.DialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/reddish</item>
+        <item name="android:fontFamily">@font/nunito_extrabold</item>
+    </style>
+
+    <style name="AppTheme.ButtonText" parent="Widget.MaterialComponents.Button.TextButton">
+        <!--item name="android:textAllCaps">true</item-->
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/selector_button_text_text</item>
+        <item name="android:fontFamily">@font/nunito_extrabold</item>
+    </style>
+
+    <!-- Editable -->
+
+    <style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/cr_input_text</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/cr_input_text</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/cr_input_text</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/cr_input_text</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">@color/selection_text_input_box_stroke</item>
+        <item name="boxBackgroundColor">@color/selection_text_input_box_background</item>
+        <item name="startIconTint">@color/reddish</item>
+        <item name="endIconTint">@color/reddish</item>
+        <item name="errorTextColor">@color/reddish</item>
+        <item name="errorIconTint">@color/reddish</item>
+
+    </style>
+
+    <style name="AppTheme.Editable">
+        <item name="android:paddingTop">@dimen/cr_input_text</item>
+        <item name="android:paddingBottom">@dimen/cr_input_text</item>
+        <item name="android:paddingStart">@dimen/cr_input_text</item>
+        <item name="android:paddingEnd">@dimen/cr_input_text</item>
+        <item name="android:paddingLeft">@dimen/cr_input_text</item>
+        <item name="android:paddingRight">@dimen/cr_input_text</item>
+        <item name="android:textColorHint">@color/black_faint</item>
+        <item name="android:popupElevation">0dp</item>
+        <!--item name="android:textCursorDrawable">@null</item-->
+    </style>
+
+    <style name="AppTheme.TextInputLayoutWithDropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundMode">filled</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="endIconMode">dropdown_menu</item>
+        <item name="endIconTint">@color/cyan</item>
+    </style>
+
+    <style name="AppTheme.EditableWithDropdown">
+        <item name="android:paddingTop">@dimen/padding_small</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:popupElevation">0dp</item>
+        <!--item name="android:textCursorDrawable">@null</item-->
+    </style>
+
+    <style name="AppTheme.TextInputLayoutMultiline" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/cr_input_text</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/cr_input_text</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/cr_input_text</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/cr_input_text</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeColor">@color/selection_text_input_box_stroke</item>
+        <item name="boxBackgroundColor">@color/selection_text_input_box_background</item>
+    </style>
+
+    <style name="AppTheme.EditableMultiline">
+        <item name="android:paddingTop">@dimen/cr_input_text</item>
+        <item name="android:paddingBottom">@dimen/cr_input_text</item>
+        <item name="android:paddingStart">@dimen/cr_input_text</item>
+        <item name="android:paddingEnd">@dimen/cr_input_text</item>
+        <item name="android:textColorHint">@color/black_faint</item>
+        <item name="android:gravity">top</item>
+    </style>
+
+</resources>

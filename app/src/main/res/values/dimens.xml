@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Padding -->
+    <dimen name="padding_micro">2dp</dimen>
+    <dimen name="padding_tiny">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_double_small">16dp</dimen>
+    <dimen name="padding_big">20dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_double_big">32dp</dimen>
+    <dimen name="padding_double_large">48dp</dimen>
+    <dimen name="padding_button_horizontal">50dp</dimen>
+    <dimen name="padding_vast">72dp</dimen>
+
+    <!-- Strokes width -->
+    <dimen name="stroke_width_separator">1dp</dimen>
+    <dimen name="stroke_width_separator_thick">2dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_size_base">14sp</dimen>
+    <dimen name="text_size_caption_big">24sp</dimen>
+    <dimen name="text_size_caption_regular">20sp</dimen>
+    <dimen name="text_size_caption_small">16sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_tiny">10sp</dimen>
+
+    <!-- Sizes -->
+    <dimen name="height_status_bar">22dp</dimen>
+    <dimen name="height_toolbar">56dp</dimen>
+    <dimen name="height_toolbar_under_status_bar">78dp</dimen><!-- toolbar (56dp) + status bar (22dp) -->
+    <dimen name="height_button">38dp</dimen>
+    <dimen name="height_popup_text_input">112dp</dimen>
+    <dimen name="height_text_input_multiline">112dp</dimen>
+    <dimen name="size_icon_small">16dp</dimen>
+    <dimen name="size_icon">24dp</dimen>
+    <dimen name="size_icon_medium">36dp</dimen>
+    <dimen name="size_icon_big">48dp</dimen>
+    <dimen name="size_image">96dp</dimen>
+    <dimen name="height_sliding_panel_collapsed">96dp</dimen> <!-- bottomNavigationPanel_height(56dp) + handle -->
+    <dimen name="height_sliding_panel_expanded">266dp</dimen> <!-- height_sliding_panel_collapsed + content -->
+
+    <!-- Elevation -->
+    <dimen name="elevation_card">4dp</dimen>
+
+    <!-- Corner radius -->
+    <dimen name="cr_popup_card">4dp</dimen>
+    <dimen name="cr_button">19dp</dimen>
+    <dimen name="cr_map_button">4dp</dimen>
+    <dimen name="cr_input_text">15dp</dimen>
+    <dimen name="cr_tab_item">15dp</dimen>
+    <dimen name="cr_image">15dp</dimen>
+    <dimen name="cr_background_rounded_rect">24dp</dimen>
+
+</resources>

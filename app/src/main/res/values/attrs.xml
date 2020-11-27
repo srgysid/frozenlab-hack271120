@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="title" format="string" />
+    <attr name="hint" format="string" />
+    <attr name="icon" format="reference" />
+    <attr name="iconSize" format="dimension" />
+    <attr name="label" format="string" />
+
+    <declare-styleable name="NavigationMenuItemView">
+        <attr name="title" />
+        <attr name="hint" />
+        <attr name="icon" />
+        <attr name="iconSize" />
+    </declare-styleable>
+
+</resources>

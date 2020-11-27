@@ -1,0 +1,145 @@
+<resources>
+
+    <string name="app_name">Hack 11/2020</string>
+
+    <!-- Masks-->
+    <string name="mask_phone" translatable="false">+7 ([000]) [000]-[00]-[00]</string>
+
+    <!-- Formats -->
+    <string name="format_date">MM/dd/yyyy</string>
+
+    <!-- Templates -->
+    <string name="template_distance_units" translatable="false">%1$d %2$s</string>
+
+    <!-- Plurals -->
+    <plurals name="template_locations_quantity">
+        <item quantity="one">%1$d object</item>
+        <item quantity="other">%1$d objects</item>
+    </plurals>
+    
+    <!-- Units -->
+    <string name="units_short_meter">m</string>
+    <string name="units_short_kilometer">km</string>
+
+    <!-- Errors-->
+    <string name="error_unknown">Unknown error</string>
+    <string name="error_login">Login fail</string>
+    <string name="error_network_connection_failed">Network connection failed</string>
+    <string name="error_email_incorrect">Email is incorrect</string>
+    <string name="error_field_blank">Field can not be blank</string>
+    <string name="error_fields_wrong">Some fields are filled incorrectly</string>
+    <string name="error_coordinates_wrong">Coordinates are wrong (format: xx.xxxxxxx, yy.yyyyyyy)</string>
+    <string name="error_passwords_different">Passwords are different</string>
+    <string name="error_need_image">You have to add an image</string>
+    <string name="error_hide_reason_too_short">PLease, enter a reason to hide location</string>
+
+    <!-- Questions -->
+    <string name="ask_permissions">You have to grant the permissions, if you like to use this function</string>
+    <string name="ask_forgot_password">Forgot password?</string>
+    <string name="ask_new_user">New user?</string>
+    <string name="ask_change_system_permissions_geolocation">To use geolocation, go to the system settings and give the appropriate permission to this application</string>
+    <string name="ask_remove_confirmation">Do you really want to remove the object?</string>
+
+    <!-- Location type rate -->
+    <string name="positive">Positive</string>
+    <string name="negative">Negative</string>
+    <string name="neutral">Neutral</string>
+
+    <!-- Location status -->
+    <string name="moderation">Moderation</string>
+    <string name="approved">Approved</string>
+    <string name="hidden">Hidden</string>
+    <string name="removed">Removed</string>
+
+    <!-- Tabs -->
+    <string name="tab_all">"   All   "</string>
+    <string name="tab_moderation">"   Moderation   "</string>
+    <string name="tab_issues">"   Issues   "</string>
+
+    <!-- Misc -->
+    <string name="available_phone_formats">Use format: +7 xxx xxx-xx-xx</string>
+    <string name="map">Map</string>
+    <string name="objects_list">Objects list</string>
+    <string name="add_object">Add object</string>
+    <string name="filters">Filters</string>
+    <string name="about_application">About</string>
+    <string name="version">Version</string>
+    <string name="login">User name</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_out">Sign out</string>
+    <string name="add">Add</string>
+    <string name="location_add_images_hint">You can add some images</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="choose_image_source">Choose image source</string>
+    <string name="coordinates">Coordinates</string>
+    <string name="object_type">Object type</string>
+    <string name="confirm">Confirm</string>
+    <string name="select_location_type"><![CDATA[<Select object type>]]></string>
+    <string name="search">Search</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="distance">Distance</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="inapplicable">Inapplicable</string>
+    <string name="show_on_map">Show on map</string>
+    <string name="report_problem">Report a problem</string>
+    <string name="problem_solved">Problem is solved</string>
+    <string name="edit">Edit</string>
+    <string name="hide">Hide</string>
+    <string name="approve">Approve</string>
+    <string name="input_reason">Input reason</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_system">Enter to system</string>
+    <string name="sign_up">Sign up</string>
+    <string name="registration">Registration</string>
+    <string name="second_name">Second name</string>
+    <string name="first_name">First name</string>
+    <string name="third_name">Third name</string>
+    <string name="password_confirm">Password confirm</string>
+    <string name="location">Location</string>
+    <string name="images">Images</string>
+    <string name="legend">Legend</string>
+    <string name="send">Send</string>
+    <string name="other_contacts">Other contacts</string>
+    <string name="save">Save</string>
+    <string name="user_agreement">User agreement</string>
+    <string name="yandex_agreement">Yandex.Map terms</string>
+    <string name="use_geolocation">Use geolocation</string>
+    <string name="settings">Settings</string>
+    <string name="go_to">Go to</string>
+    <string name="check_all">Check all</string>
+    <string name="clear_all">Clear all</string>
+    <string name="edit_object">Edit object</string>
+    <string name="ask_before_exit">Press \"Back\" again to exit</string>
+    <string name="reveal">Reveal</string>
+    <string name="author">Author</string>
+    <string name="hide_reason">Hide reason:</string>
+    <string name="colon" translatable="false">:</string>
+    <string name="author_contacts">Author contacts</string>
+    <string name="who_added">Who added</string>
+    <string name="remove">Remove</string>
+    <string name="select_coordinates"><![CDATA[<Select location>]]></string>
+    <string name="remind_geolocation_disabled">Geolocation is disabled. Go to Settings to enable it</string>
+    <string name="suggest_registration">For a better experience with the application, you can register or log into your account</string>
+    <string name="all">All</string>
+    <string name="issues">Issues</string>
+    <string name="unsolved_issues">Unsolved issue</string>
+    <string name="do_continue">Continue</string>
+    <string name="has_unsolved_issues">There is unresolved issue</string>
+    <string name="created_at">Created at</string>
+    <string name="view">View</string>
+    <string name="vk_link">VK community</string>
+    <string name="web_link">Web site</string>
+    <string name="group">Group</string>
+    <string name="type">Type</string>
+    <string name="privacy_confirmation">By clicking the "SIGN UP" button, I give my consent to the processing of personal data and accept the terms of the user agreement</string>
+    <string name="ask_restore_lost_connection">Can\'t connect server. Repeat?</string>
+    <string name="repeat">Repeat</string>
+    <string name="ok">Ok</string>
+
+</resources>

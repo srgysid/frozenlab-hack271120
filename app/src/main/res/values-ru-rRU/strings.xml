@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Хакатон 11.2020</string>
+
+    <!-- Formats -->
+    <string name="format_date">dd.MM.yyyy</string>
+
+    <!-- Plurals -->
+    <plurals name="template_locations_quantity">
+        <item quantity="one">%1$d объект</item>
+        <item quantity="few">%1$d объекта</item>
+        <item quantity="many">%1$d объектов</item>
+    </plurals>
+
+    <!-- Units -->
+    <string name="units_short_meter">м</string>
+    <string name="units_short_kilometer">км</string>
+
+    <!-- Errors-->
+    <string name="error_unknown">Неизвестная ошибка</string>
+    <string name="error_login">Ошибка авторизации</string>
+    <string name="error_network_connection_failed">Неудалось установить соединение с сервером, возможно отсутствует подключение к сети</string>
+    <string name="error_email_incorrect">Адрес электронной почты введен некорректно</string>
+    <string name="error_field_blank">Поле не может быть пустым</string>
+    <string name="error_fields_wrong">Некоторые поля заполнены неверно</string>
+    <string name="error_coordinates_wrong">Координаты введены не верно (формат: xx.xxxxxxx, yy.yyyyyyy)</string>
+    <string name="error_passwords_different">Пароли не совпадают</string>
+    <string name="error_need_image">Вы должны добавить изображение</string>
+    <string name="error_hide_reason_too_short">Пожалуйста, укажите причину скрытия объекта</string>
+
+    <!-- Questions -->
+    <string name="ask_permissions">Вы должны дать приложению необходимые разрешения, если вы хотите использовать данный функционал</string>
+    <string name="ask_forgot_password">Забыли пароль?</string>
+    <string name="ask_new_user">Новый пользователь?</string>
+    <string name="ask_change_system_permissions_geolocation">Чтобы использовать геолокацию, зайдите в настройки системы и выдайте соответствующее разрешение этому приложению</string>
+    <string name="ask_remove_confirmation">Вы действительно хотите удалить этот объект?</string>
+
+    <!-- Location type rate -->
+    <string name="positive">Положительный</string>
+    <string name="negative">Отрицательный</string>
+    <string name="neutral">Нейтральный</string>
+
+    <!-- Location status -->
+    <string name="moderation">Не рассмотрено</string>
+    <string name="approved">Одобрен</string>
+    <string name="hidden">Скрыт</string>
+    <string name="removed">Удален</string>
+
+    <!-- Tabs -->
+    <string name="tab_all">"   Все   "</string>
+    <string name="tab_moderation">"   Не рассмотрено   "</string>
+    <string name="tab_issues">"   Проблемы   "</string>
+
+    <!-- Misc -->
+    <string name="available_phone_formats">Формат номера телефона: +7 xxx xx-xx-xx</string>
+    <string name="map">Карта</string>
+    <string name="objects_list">Список объектов</string>
+    <string name="add_object">Добавить объект</string>
+    <string name="filters">Фильтры</string>
+    <string name="about_application">О приложении</string>
+    <string name="version">Версия</string>
+    <string name="login">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_out">Выйти</string>
+    <string name="add">Добавить</string>
+    <string name="location_add_images_hint">Вы можете прикрепить несколько фотографий</string>
+    <string name="name">Наименование</string>
+    <string name="description">Описание</string>
+    <string name="gallery">Галерея</string>
+    <string name="camera">Камера</string>
+    <string name="choose_image_source">Выберите источник изображения</string>
+    <string name="coordinates">Координаты</string>
+    <string name="object_type">Тип объекта</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="select_location_type"><![CDATA[<Выберите тип объекта>]]></string>
+    <string name="search">Поиск</string>
+    <string name="phone">Номер телефона</string>
+    <string name="email">Электронная почта</string>
+    <string name="distance">Расстояние</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="inapplicable">Неприменимо</string>
+    <string name="show_on_map">Показать на карте</string>
+    <string name="report_problem">Сообщить о проблеме</string>
+    <string name="problem_solved">Проблема решена</string>
+    <string name="edit">Редактировать</string>
+    <string name="hide">Скрыть</string>
+    <string name="approve">Подтвердить</string>
+    <string name="input_reason">Укажите причину</string>
+    <string name="cancel">Отменить</string>
+    <string name="enter_system">Вход в систему</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="registration">Регистрация</string>
+    <string name="second_name">Фамилия</string>
+    <string name="first_name">Имя</string>
+    <string name="third_name">Отчество</string>
+    <string name="password_confirm">Повторите пароль</string>
+    <string name="location">Местонахождение объекта</string>
+    <string name="images">Изображения</string>
+    <string name="legend">Условные обозначения</string>
+    <string name="send">Отправить</string>
+    <string name="other_contacts">Другие контакты</string>
+    <string name="save">Сохранить</string>
+    <string name="user_agreement">Пользовательское соглашение</string>
+    <string name="yandex_agreement">Условия использования Яндекс.Карт</string>
+    <string name="use_geolocation">Использовать геолокацию</string>
+    <string name="settings">Настройки</string>
+    <string name="go_to">Перейти</string>
+    <string name="check_all">Отметить все</string>
+    <string name="clear_all">Очистить все</string>
+    <string name="edit_object">Редактировать объект</string>
+    <string name="ask_before_exit">Нажмите \"Назад\" еще раз чтобы выйти</string>
+    <string name="reveal">Показать</string>
+    <string name="author">Автор</string>
+    <string name="hide_reason">Объект скрыт по причине:</string>
+    <string name="author_contacts">Контакты до</string>
+    <string name="who_added">Кто добавил</string>
+    <string name="remove">Удалить</string>
+    <string name="select_coordinates"><![CDATA[<Выберите местоположение>]]></string>
+    <string name="remind_geolocation_disabled">Определение местоположения отключено. Зайдите в Настройки, чтобы включить эту возможность</string>
+    <string name="suggest_registration">
+        <![CDATA[
+        Вы можете зарегистрироваться или войти в свой аккаунт, если он у вас уже есть.\n
+        Это облегчит взаимодействие с сервисом, позволит воспользоваться автоматическим заполнением полей и получать обратную связь.
+]]>
+    </string>
+    <string name="all">Все</string>
+    <string name="issues">Проблемы</string>
+    <string name="unsolved_issues">Нерешенная проблема</string>
+    <string name="do_continue">Продолжить</string>
+    <string name="has_unsolved_issues">Есть жалоба или нерешенная проблема</string>
+    <string name="created_at">Добавлена</string>
+    <string name="view">Просмотр</string>
+    <string name="vk_link">Сообщество VK</string>
+    <string name="web_link">Сайт</string>
+    <string name="group">Группа</string>
+    <string name="type">Тип</string>
+    <string name="privacy_confirmation">Нажимая кнопку “ЗАРЕГИСТРИРОВАТЬСЯ”, я даю своё согласие на обработку персональных данных и принимаю условия пользовательского соглашения</string>
+    <string name="ask_restore_lost_connection">Неудалось подключиться к серверу. Повторить?</string>
+    <string name="repeat">Повторить</string>
+    <string name="ok">Ок</string>
+
+</resources>
