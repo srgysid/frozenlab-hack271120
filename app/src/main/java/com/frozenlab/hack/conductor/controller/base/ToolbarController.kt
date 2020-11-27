@@ -6,7 +6,7 @@ import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.frozenlab.hack.R
 import com.frozenlab.hack.conductor.controller.base.BaseController
-/*
+
 abstract class ToolbarController: BaseController {
 
     constructor(): super()
@@ -57,4 +57,4 @@ abstract class ToolbarController: BaseController {
             actionBar.hide()
         }
     }
-}*/
+}ToolbarController

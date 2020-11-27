@@ -63,20 +63,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <!--com.frozenlab.hack.custom.view.NavigationMenuItemView
-                        app:title="@string/objects_list"
+                    <com.frozenlab.hack.custom.view.NavigationMenuItemView
+                        app:hint="@string/hint_profile"
                         app:iconSize="@dimen/size_icon_medium"
-                        android:id="@+id/menu_item_objects"
+                        android:id="@+id/menu_item_profile"
                         android:layout_marginBottom="@dimen/padding_big"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" /-->
+                        android:layout_height="wrap_content" />
+
+                    <com.frozenlab.hack.custom.view.NavigationMenuItemView
+                        app:title="@string/about_application"
+                        app:iconSize="@dimen/size_icon_medium"
+                        android:id="@+id/menu_item_about_app"
+                        android:layout_marginBottom="@dimen/padding_big"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
 
             <com.frozenlab.hack.custom.view.NavigationMenuItemView
-                app:title="@string/sign_in"
+                app:title="@string/sign_out"
                 app:iconSize="@dimen/size_icon_medium"
                 android:id="@+id/menu_item_sign_in_sign_out"
                 android:layout_alignParentBottom="true"

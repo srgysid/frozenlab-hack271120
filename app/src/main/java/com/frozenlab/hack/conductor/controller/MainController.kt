@@ -2,6 +2,8 @@ package com.frozenlab.hack.conductor.controller
 
 import android.Manifest
 import android.content.ContentValues
+import android.media.AudioFormat
+import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Handler
@@ -15,6 +17,7 @@ import com.frozenlab.hack.Preferences
 import com.frozenlab.hack.conductor.controller.base.BaseController
 import com.frozenlab.hack.databinding.ControllerMainBinding
 import com.frozenlab.hack.websocket.VoiceWebSocketListener
+import com.frozenlab.hack.websocket.getUnsafeOkHttpClientBuilder
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
@@ -22,23 +25,26 @@ import okio.ByteString.Companion.toByteString
 import timber.log.Timber
 import java.io.*
 import java.util.*
-
+import java.util.concurrent.TimeUnit
 
 class MainController: BaseController {
 
     companion object {
-        private const val SOCKET_CLOSE_NORMAL_CODE = 1000
-        private const val SOCKET_CLOSE_NORMAL_REASON = "finished"
+        private const val WEB_SOCKET_CLOSE_NORMAL_CODE   = 1000
+        private const val WEB_SOCKET_CLOSE_NORMAL_REASON = "finished"
+        private const val WEB_SOCKET_BUFFER_SIZE         = 8192
     }
 
     constructor(): super()
     constructor(args: Bundle): super(args)
 
-    private var recordStream:   FileOutputStream? = null
-    private var webSocket:      WebSocket? = null
+    //private var recordStream:   FileOutputStream? = null
+    private var webSocket:   WebSocket? = null
+    private var audioRecord: AudioRecord? = null
+    private var isReading:   Boolean = false
+    //private var _mediaRecorder: MediaRecorder? = null
+    // private val mediaRecorder:  MediaRecorder get() = _mediaRecorder!!
 
-    private var _mediaRecorder: MediaRecorder? = null
-    private val mediaRecorder:  MediaRecorder get() = _mediaRecorder!!
 
     override val binding: ControllerMainBinding get() = _binding!! as ControllerMainBinding
 
@@ -55,7 +61,8 @@ class MainController: BaseController {
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaRecorderDestroy()
+        audioRecord?.release()
+        webSocket?.cancel()
     }
 
     private var voiceTouchListener = object: View.OnTouchListener {
@@ -82,12 +89,10 @@ class MainController: BaseController {
                     mHandler!!.removeCallbacks(mAction)
                     mHandler = null
 
-                    if(Calendar.getInstance().timeInMillis - start < 500) {
+                    if (Calendar.getInstance().timeInMillis - start < 500) {
                         view?.performClick()
                     } else {
-                        recordStream?.run {
-                            recordStop(this)
-                        }
+                        recordStop()
                     }
                 }
             }
@@ -97,94 +102,130 @@ class MainController: BaseController {
 
         var mAction: Runnable = object: Runnable {
             override fun run() {
-
-                if(recordStream == null) {
-                    recordStream = getFileOutputStream()?.also {
-                        recordStart(it)
-                    }
+                if(!isReading) {
+                    recordStart()
                 }
                 mHandler?.postDelayed(this, 500);
             }
         }
     }
+    /*
+        private fun mediaRecorderCreate() {
+            if(_mediaRecorder != null) {
+                _mediaRecorder?.release()
+                _mediaRecorder = null
+            }
 
-    private fun mediaRecorderCreate() {
-        if(_mediaRecorder != null) {
-            _mediaRecorder?.release()
-            _mediaRecorder = null
+            _mediaRecorder = MediaRecorder()
         }
 
-        _mediaRecorder = MediaRecorder()
-    }
-
-    private fun mediaRecorderIsReady(): Boolean {
-        return _mediaRecorder != null
-    }
-
-    private fun mediaRecorderDestroy() {
-        _mediaRecorder?.run {
-            _mediaRecorder?.release()
-            _mediaRecorder = null
+        private fun mediaRecorderIsReady(): Boolean {
+            return _mediaRecorder != null
         }
+
+        private fun mediaRecorderDestroy() {
+            _mediaRecorder?.run {
+                _mediaRecorder?.release()
+                _mediaRecorder = null
+            }
+        }
+    */
+    private fun createAudioRecord() {
+
+        val sampleRate    = 8000
+        val channelConfig = AudioFormat.CHANNEL_IN_MONO
+        val audioFormat   = AudioFormat.ENCODING_PCM_16BIT
+        val bufferSize    = 4 * AudioRecord.getMinBufferSize(sampleRate, channelConfig, audioFormat)
+
+        audioRecord = AudioRecord(
+            MediaRecorder.AudioSource.MIC,
+            sampleRate,
+            channelConfig,
+            audioFormat,
+            bufferSize
+        )
     }
 
-    private fun recordStart(stream: FileOutputStream) {
+    private fun createWebSocket() {
+
+        val timeout = Preferences.okHttpSocketTimeOut
+
+        val okHttpClient = getUnsafeOkHttpClientBuilder()
+            .connectTimeout(timeout, TimeUnit.SECONDS)
+            .writeTimeout(timeout, TimeUnit.SECONDS)
+            .readTimeout(timeout, TimeUnit.SECONDS)
+            .build()
+
+        val request = Request.Builder()
+            .url(Preferences.voiceUrl)
+            .build()
+
+        val listener = VoiceWebSocketListener()
+
+        webSocket = okHttpClient.newWebSocket(request, listener)
+    }
+
+    private fun streamToWebSocket() {
+        audioRecord?.startRecording()
+        isReading = true
+        Thread {
+            if(audioRecord == null) return@Thread
+            val buffer = ByteArray(WEB_SOCKET_BUFFER_SIZE)
+            var count: Int
+            while (isReading) {
+                count = audioRecord?.read(buffer, 0, WEB_SOCKET_BUFFER_SIZE) ?: -1
+                Timber.d("readed: ${count}")
+                if(webSocket?.send(buffer.toByteString()) != true) {
+                    Timber.e("Web socket error")
+                }
+            }
+        }.start()
+    }
+
+    private fun recordStart() {
         try {
 
-            mediaRecorderCreate()
+            if(audioRecord?.state != AudioRecord.STATE_INITIALIZED) {
+                createAudioRecord()
+            }
 
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS)
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-            mediaRecorder.setOutputFile(stream.fd)
-            mediaRecorder.prepare()
-            mediaRecorder.start()
+            if(webSocket == null) {
+                createWebSocket()
+            }
+
+            streamToWebSocket()
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    private fun recordStop(stream: FileOutputStream) {
+    private fun recordStop() {
 
-        if(mediaRecorderIsReady()) {
+        isReading = false
+
+        if(audioRecord?.recordingState == AudioRecord.RECORDSTATE_RECORDING) {
             try {
-                mediaRecorder.stop()
+                audioRecord?.stop()
             } catch (e: Exception) {
-                recordStream?.close()
-                recordStream = null
-                return
+                Timber.e(e.localizedMessage)
             }
-            //mediaRecorderDestroy()
         }
 
         try {
-
-            val client = OkHttpClient()
-            val request = Request.Builder()
-                .url(Preferences.voiceUrl)
-                .build()
-            val listener = VoiceWebSocketListener()
-
-            webSocket = client.newWebSocket(request, listener)
-            webSocket?.send(FileInputStream(stream.fd).readBytes().toByteString())
-            webSocket?.close(SOCKET_CLOSE_NORMAL_CODE, SOCKET_CLOSE_NORMAL_REASON)
+            webSocket?.close(WEB_SOCKET_CLOSE_NORMAL_CODE, WEB_SOCKET_CLOSE_NORMAL_REASON)
             webSocket = null
-
         } catch (e: Exception) {
             Timber.e(e.localizedMessage)
-            recordStream?.close()
-            recordStream = null
         }
 
-        recordStream?.close()
-        recordStream = null
     }
 
     private fun getPermissions(onSuccess: () -> Unit) {
 
         val permList = arrayListOf(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO
         )
 
         val needPermissions = mainActivity.requestPermissionsIfNeed(permList) {

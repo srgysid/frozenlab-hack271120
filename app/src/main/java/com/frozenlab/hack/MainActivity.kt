@@ -1,5 +1,9 @@
 package com.frozenlab.hack
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
@@ -11,26 +15,32 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.frozenlab.api.ApiCommunicator
 import com.frozenlab.api.ApiError
 import com.frozenlab.api.ApiHolder
 import com.frozenlab.api.toApiError
-import com.frozenlab.extensions.getNotGrantedPermissions
-import com.frozenlab.extensions.setRootFade
-import com.frozenlab.extensions.showToast
+import com.frozenlab.extensions.*
 import com.frozenlab.hack.api.HackApiContext
 import com.frozenlab.hack.api.HackApi
+import com.frozenlab.hack.api.requests.FCMRequest
+import com.frozenlab.hack.conductor.controller.LoginController
 import com.frozenlab.hack.conductor.controller.MainController
 import com.frozenlab.hack.databinding.ActivityMainBinding
+import com.frozenlab.welive.api.models.UserProfile
 import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
@@ -38,7 +48,18 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
     companion object {
         const val REQUEST_PERMISSIONS_CODE = 6861
         const val USER_DATA_LOADED_CHECK_INTERVAL = 500L // Milliseconds
+
+        const val INTENT_NEW_FCM_TOKEN     = "HackNewFCMToken"
+        const val INTENT_NOTIFICATION_DATA = "HackWeLiveNotificationData"
+
+        const val SAVED_CURRENT_USER_PROFILE  = "key_hack_user_profile"
     }
+
+    var currentUserProfile: UserProfile? = null
+        set(value) {
+            field = value
+            updateUserProfileViews()
+        }
 
     private var accessToken: String = Preferences.accessToken
         set(value) {
@@ -70,6 +91,8 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
             .create()
     }
 
+    private var loginFailed = false
+    private var userProfileLoaded  = false
     private val userDataLoadedHandler: Handler = Handler()
 
     private var _binding: ActivityMainBinding? = null
@@ -106,23 +129,20 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
     override fun onStart() {
         super.onStart()
 
-        /*
-        LocalBroadcastManager.getInstance(this)
-            .registerReceiver(broadcastMessagesReceiver, IntentFilter().apply {
-                addAction(INTENT_NEW_FCM_TOKEN)
-            })
+        val intentFilter = IntentFilter().apply {
+            addAction(INTENT_NEW_FCM_TOKEN)
+            addAction(INTENT_NOTIFICATION_DATA)
+        }
 
-         */
+        LocalBroadcastManager.getInstance(this)
+            .registerReceiver(broadcastMessagesReceiver, intentFilter)
     }
 
     override fun onStop() {
         super.onStop()
 
-        /*
         LocalBroadcastManager.getInstance(this)
             .unregisterReceiver(broadcastMessagesReceiver)
-
-         */
     }
 
     /*override fun onSupportNavigateUp(): Boolean {
@@ -169,18 +189,17 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        //outState.putString(SAVED_CURRENT_USER_PROFILE, hackGson.toJson(currentUserProfile))
+        outState.putString(SAVED_CURRENT_USER_PROFILE, hackGson.toJson(currentUserProfile))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        /*
         savedInstanceState.getString(SAVED_CURRENT_USER_PROFILE)?.let { json ->
             if (json.isNotEmpty()) {
                 currentUserProfile = hackGson.fromJson(json, UserProfile::class.java)
             }
-        }*/
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -277,21 +296,90 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         return false
     }
 
+    fun blockDrawer(block: Boolean) {
+        if(block)
+            binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        else
+            binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+    }
+
+    fun login() {
+
+        loginFailed        = false
+        userProfileLoaded  = false
+
+        userDataLoadedHandler.post(userDataLoadedChecker)
+
+        if(accessToken.isNotBlank()) {
+
+            applyFCMToken()
+            getCurrentUserProfileAndAccounts()
+
+        } else {
+            loginFailed = true
+        }
+    }
+
+    private fun logout() {
+
+        removeFCMToken()
+
+        // This delay is needed before removing the access token in order to give time to the method above
+        Handler().postDelayed({
+            this.accessToken = ""
+        }, 300L)
+
+        currentUserProfile  = null
+
+        blockDrawer(true)
+
+        router.setRootFade(LoginController())
+    }
+
     //
     // Private
-    //
+
+    private val broadcastMessagesReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+            when(intent?.action) {
+
+                INTENT_NEW_FCM_TOKEN -> {
+                    applyFCMToken()
+                }
+
+                INTENT_NOTIFICATION_DATA -> {
+
+                }
+            }
+        }
+    }
 
     private val userDataLoadedChecker = object: Runnable {
         override fun run() {
 
-            if(true) {
+            if(loginFailed) {
+
+                userDataLoadedHandler.removeCallbacks(this)
+
+                binding.coordinator.initProgressBar.isVisible = false
+
+                if(router.backstack.isEmpty() || (router.backstack.first().controller !is LoginController)) {
+                    router.setRootInstant(LoginController())
+                }
+
+                return
+            }
+
+            if(userProfileLoaded) {
 
                 binding.coordinator.initProgressBar.isVisible = false
 
                 userDataLoadedHandler.removeCallbacks(this)
 
                 router.setRootFade(MainController())
-                //blockDrawer(false)
+                blockDrawer(false)
 
                 return
             }
@@ -302,14 +390,88 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
 
 
     private fun start() {
-
         binding.coordinator.initProgressBar.isVisible = true
+        login()
+    }
 
-        userDataLoadedHandler.post(userDataLoadedChecker)
+    private fun applyFCMToken() {
+        val token = Preferences.fcmToken.ifEmpty { null }
+        if(!token.isNullOrBlank())
+            sendFCMTokenToServer(token, token)
+    }
 
-        //if(accessToken.isNotBlank()) {
+    private fun removeFCMToken() {
+        val token = Preferences.fcmToken.ifEmpty { null }
+        if(!token.isNullOrBlank())
+            sendFCMTokenToServer(token, null)
+    }
 
-        //}
+    private fun sendFCMTokenToServer(oldToken: String?, newToken: String?) {
+
+        val fcmRequest = FCMRequest().apply {
+            this.newToken = newToken
+            this.oldToken = oldToken
+        }
+
+        apiRequest(
+            hackApi.sendFCMToken(fcmRequest),
+            successUnit = {
+                if(!fcmRequest.newToken.isNullOrEmpty())
+                    Preferences.fcmToken = fcmRequest.newToken!!
+            },
+            showLoading = false
+        )
+    }
+
+    private fun updateUserProfileViews() {
+        binding.menuItemProfile.title = currentUserProfile?.name?.firstThirdName
+    }
+
+    private fun getCurrentUserProfileAndAccounts() {
+
+        this.apiRequest(
+            hackApi.getUserProfile(),
+            { userProfile ->
+                userProfileLoaded  = true
+                currentUserProfile = userProfile
+            },
+            { handleThrowable(it, true) },
+            false
+        )
+    }
+
+    private fun closeDrawer() {
+        binding.drawer.closeDrawer(GravityCompat.START)
+    }
+
+    private fun openDrawer() {
+        binding.drawer.openDrawer(GravityCompat.START)
+    }
+
+    private fun configureDrawer() {
+
+        binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
+        // Close button click
+        binding.buttonMenuClose.setOnClickListener { closeDrawer() }
+
+        // Profile
+        binding.menuItemProfile.setOnClickListener {
+
+            closeDrawer()
+        }
+
+        // AboutApp
+        binding.menuItemAboutApp.hint = "${getString(R.string.version)} ${com.frozenlab.extensions.BuildConfig.VERSION_NAME}"
+        binding.menuItemAboutApp.setOnClickListener {
+            router.pushControllerHorizontal(AboutAppController())
+            closeDrawer()
+        }
+
+        // SignOut
+        binding.menuItemSignOut.setOnClickListener {
+            logout()
+        }
     }
 
     private fun onReceiveFail(throwable: Throwable) {
@@ -360,4 +522,5 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
             loadingIndicator.hide()
         }
     }
+
 }

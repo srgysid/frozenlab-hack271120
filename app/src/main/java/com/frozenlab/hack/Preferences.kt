@@ -11,13 +11,13 @@ object Preferences {
 
 
     private enum class PreferencesValues(val prefName: String, val defaultValue: Any?) {
-        ACCESS_TOKEN(              "PREF_ACCESS_TOKEN",              ""   ),
-        //FCM_TOKEN(          "PREF_FCM_TOKEN",          ""         ),
+        ACCESS_TOKEN( "PREF_ACCESS_TOKEN", ""   ),
+        FCM_TOKEN(    "PREF_FCM_TOKEN",    ""   ),
     }
 
     // Settings
     const val apiURL:              String = "https://api-ra.welive.cloud"
-    const val voiceUrl:            String = "http://45.137.190.230:27001"
+    const val voiceUrl:            String = "ws://45.137.190.230:27001"
     const val privacyPolicyUrl:    String = "https://"
     const val okHttpSocketTimeOut: Long   = 60 // Seconds (default: 10 seconds)
 
@@ -26,6 +26,10 @@ object Preferences {
     var accessToken: String
         get()      = getStringValue(PreferencesValues.ACCESS_TOKEN)
         set(value) = setStringValue(PreferencesValues.ACCESS_TOKEN, value)
+
+    var fcmToken: String
+        get()      = getStringValue(PreferencesValues.FCM_TOKEN)
+        set(value) = setStringValue(PreferencesValues.FCM_TOKEN, value)
 
     // Private area
 

@@ -27,4 +27,9 @@ class VoiceWebSocketListener: WebSocketListener() {
         super.onClosed(webSocket, code, reason)
         Timber.e("Closed: ($code) $reason")
     }
+
+    override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
+        super.onFailure(webSocket, t, response)
+        Timber.e(t.stackTraceToString())
+    }
 }
