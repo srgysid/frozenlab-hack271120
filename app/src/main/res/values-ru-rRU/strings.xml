@@ -60,7 +60,7 @@
     <string name="filters">Фильтры</string>
     <string name="about_application">О приложении</string>
     <string name="version">Версия</string>
-    <string name="login">Имя пользователя</string>
+    <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="sign_in">Войти</string>
     <string name="sign_out">Выйти</string>
@@ -141,5 +141,7 @@
     <string name="ask_restore_lost_connection">Неудалось подключиться к серверу. Повторить?</string>
     <string name="repeat">Повторить</string>
     <string name="ok">Ок</string>
+    <string name="hint_profile">Посмотреть свой профиль</string>
+    <string name="welcome">Добро пожаловать!</string>
 
 </resources>

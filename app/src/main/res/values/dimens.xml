@@ -48,7 +48,7 @@
     <dimen name="cr_popup_card">4dp</dimen>
     <dimen name="cr_button">19dp</dimen>
     <dimen name="cr_map_button">4dp</dimen>
-    <dimen name="cr_input_text">15dp</dimen>
+    <dimen name="cr_input_text">12dp</dimen>
     <dimen name="cr_tab_item">15dp</dimen>
     <dimen name="cr_image">15dp</dimen>
     <dimen name="cr_background_rounded_rect">24dp</dimen>

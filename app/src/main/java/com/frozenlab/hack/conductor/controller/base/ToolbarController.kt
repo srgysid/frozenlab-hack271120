@@ -57,4 +57,4 @@ abstract class ToolbarController: BaseController {
             actionBar.hide()
         }
     }
-}ToolbarController
+}

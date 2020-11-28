@@ -6,37 +6,36 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowActionBarOverlay">true</item>
 
-        <item name="colorPrimary">@color/cyan</item>
-        <item name="colorPrimaryDark">@color/cyan</item>
-        <item name="colorAccent">@color/cyan</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/blue</item>
+        <item name="colorAccent">@color/blue</item>
 
         <item name="android:textSize">@dimen/text_size_base</item>
         <item name="android:textColor">@color/black</item>
-
-        <item name="android:fontFamily">@font/nunito_light</item>
+        <item name="android:fontFamily">@font/rosatom_regular</item>
 
     </style>
 
     <!-- Common text styles -->
 
-    <style name="AppTheme.TextRegular">
+    <style name="AppTheme.TextLight">
         <item name="android:textSize">@dimen/text_size_base</item>
-        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:fontFamily">@font/rosatom_light</item>
     </style>
 
     <style name="AppTheme.CaptionBig">
         <item name="android:textSize">@dimen/text_size_caption_big</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:fontFamily">@font/rosatom_bold</item>
     </style>
 
     <style name="AppTheme.CaptionRegular">
         <item name="android:textSize">@dimen/text_size_caption_regular</item>
-        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:fontFamily">@font/rosatom_bold</item>
     </style>
 
     <style name="AppTheme.CaptionSmall">
         <item name="android:textSize">@dimen/text_size_caption_small</item>
-        <item name="android:fontFamily">@font/nunito_regular</item>
+        <item name="android:fontFamily">@font/rosatom_regular</item>
     </style>
 
     <style name="AppTheme.TextSmall">
@@ -70,10 +69,10 @@
     </style>
 
     <style name="AppTheme.Link">
-        <item name="android:fontFamily">@font/nunito_semibold</item>
+        <item name="android:fontFamily">@font/rosatom_bold</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/cyan</item>
-        <item name="android:drawableTint">@color/cyan</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:drawableTint">@color/blue</item>
     </style>
 
     <style name="AppTheme.Label" parent="TextAppearance.AppCompat.Small">
@@ -95,39 +94,43 @@
         <item name="backgroundTint">@color/selector_button_background</item>
     </style>
 
+    <style name="AppTheme.Button.OnColored">
+        <item name="android:textColor">@color/selector_button_text_on_colored</item>
+        <item name="backgroundTint">@color/selector_button_background_on_colored</item>
+    </style>
+
     <style name="AppTheme.DialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textAllCaps">true</item>
         <item name="android:letterSpacing">0.02</item>
         <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/reddish</item>
-        <item name="android:fontFamily">@font/nunito_extrabold</item>
+        <item name="android:fontFamily">@font/rosatom_bold</item>
     </style>
 
     <style name="AppTheme.ButtonText" parent="Widget.MaterialComponents.Button.TextButton">
         <!--item name="android:textAllCaps">true</item-->
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/selector_button_text_text</item>
-        <item name="android:fontFamily">@font/nunito_extrabold</item>
+        <item name="android:fontFamily">@font/rosatom_bold</item>
     </style>
 
     <!-- Editable -->
 
-    <style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="boxCornerRadiusTopStart">@dimen/cr_input_text</item>
         <item name="boxCornerRadiusTopEnd">@dimen/cr_input_text</item>
         <item name="boxCornerRadiusBottomStart">@dimen/cr_input_text</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/cr_input_text</item>
-        <item name="boxBackgroundMode">outline</item>
-        <item name="boxStrokeWidthFocused">1dp</item>
-        <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeColor">@color/selection_text_input_box_stroke</item>
-        <item name="boxBackgroundColor">@color/selection_text_input_box_background</item>
+        <item name="boxBackgroundMode">none</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxStrokeWidth">12dp</item>
+        <item name="boxStrokeColor">@color/selector_text_input_box_stroke</item>
+        <item name="boxBackgroundColor">@color/selector_text_input_box_background</item>
         <item name="startIconTint">@color/reddish</item>
         <item name="endIconTint">@color/reddish</item>
         <item name="errorTextColor">@color/reddish</item>
         <item name="errorIconTint">@color/reddish</item>
-
     </style>
 
     <style name="AppTheme.Editable">
@@ -142,12 +145,23 @@
         <!--item name="android:textCursorDrawable">@null</item-->
     </style>
 
+    <style name="AppTheme.TextInputLayout.OnColored">
+        <item name="boxStrokeColor">@color/selector_text_input_box_stroke_on_colored</item>
+        <item name="boxBackgroundColor">@color/selector_text_input_box_background_on_colored</item>
+    </style>
+
+    <style name="AppTheme.Editable.OnColored">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textCursorDrawable">@drawable/shape_cursor</item>
+    </style>
+
     <style name="AppTheme.TextInputLayoutWithDropdown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxBackgroundMode">filled</item>
         <item name="boxStrokeWidthFocused">2dp</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="endIconMode">dropdown_menu</item>
-        <item name="endIconTint">@color/cyan</item>
+        <item name="endIconTint">@color/blue</item>
     </style>
 
     <style name="AppTheme.EditableWithDropdown">
@@ -170,8 +184,8 @@
         <item name="boxBackgroundMode">outline</item>
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="boxStrokeWidth">1dp</item>
-        <item name="boxStrokeColor">@color/selection_text_input_box_stroke</item>
-        <item name="boxBackgroundColor">@color/selection_text_input_box_background</item>
+        <item name="boxStrokeColor">@color/selector_text_input_box_stroke</item>
+        <item name="boxBackgroundColor">@color/selector_text_input_box_background</item>
     </style>
 
     <style name="AppTheme.EditableMultiline">

@@ -52,7 +52,7 @@
 
             <androidx.core.widget.NestedScrollView
                 android:layout_below="@id/layout_main_menu_header"
-                android:layout_above="@id/menu_item_sign_in_sign_out"
+                android:layout_above="@id/menu_item_sign_out"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
 
@@ -86,7 +86,7 @@
             <com.frozenlab.hack.custom.view.NavigationMenuItemView
                 app:title="@string/sign_out"
                 app:iconSize="@dimen/size_icon_medium"
-                android:id="@+id/menu_item_sign_in_sign_out"
+                android:id="@+id/menu_item_sign_out"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/padding_medium"
                 android:layout_marginEnd="@dimen/padding_big"

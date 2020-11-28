@@ -3,95 +3,91 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
-    android:background="@color/white"
+    android:background="@drawable/bg_gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
         android:gravity="center"
+        android:layout_marginHorizontal="35dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--ImageView
-            android:src="@drawable/ic_logo_with_title_72dp"
-            android:scaleType="fitXY"
-            android:contentDescription="@string/cd_logo"
+        <ImageView
+            android:src="@drawable/ic_logo_title_vertical_white"
+            android:scaleType="centerInside"
             android:layout_gravity="center"
-            android:layout_marginBottom="102dp"
-            android:layout_width="108dp"
-            android:layout_height="129dp" /-->
-
-        <!-- Phone -->
-        <com.frozenlab.ui.widgets.EditableWithLabel
-            app:label="@string/label_phone"
-            android:id="@+id/editable_phone"
-            android:hint="@string/phone"
-            android:inputType="phone"
-            android:nextFocusDown="@id/editable_password"
-            android:layout_marginStart="@dimen/padding_large"
-            android:layout_marginEnd="@dimen/padding_large"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- Password -->
-        <com.frozenlab.ui.widgets.EditableWithLabel
-            app:label="@string/label_password"
-            app:endIconMode="password_toggle"
-            android:id="@+id/editable_password"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:nextFocusDown="@id/button_sign_in"
-            android:layout_marginTop="@dimen/padding_big"
-            android:layout_marginStart="@dimen/padding_large"
-            android:layout_marginEnd="@dimen/padding_large"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="122dp" />
 
         <TextView
-            style="@style/AppTheme.Hint"
-            android:id="@+id/text_restore_password"
-            android:text="@string/ask_forgot_password"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/padding_small"
-            android:layout_marginEnd="@dimen/padding_large"
+            style="@style/AppTheme.CaptionRegular"
+            android:textColor="@color/white"
+            android:text="@string/welcome"
+            android:layout_marginTop="66dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            style="@style/AppTheme.Button"
+        <!-- Login -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme.TextInputLayout.OnColored"
+            app:hintEnabled="false"
+            android:id="@+id/wrapper_login"
+            android:layout_marginTop="@dimen/padding_double_big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/AppTheme.Editable.OnColored"
+                android:id="@+id/editable_login"
+                android:hint="@string/login"
+                android:inputType="text"
+                android:nextFocusDown="@id/editable_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_width_separator" />
+
+        <!-- Password -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/AppTheme.TextInputLayout.OnColored"
+            app:hintEnabled="false"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/white"
+            android:id="@+id/wrapper_password"
+            android:layout_marginTop="@dimen/padding_big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/AppTheme.Editable.OnColored"
+                android:id="@+id/editable_password"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:nextFocusDown="@id/button_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/stroke_width_separator" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/AppTheme.Button.OnColored"
             android:id="@+id/button_sign_in"
             android:text="@string/sign_in"
-            android:layout_marginTop="@dimen/padding_very_huge"
-            android:layout_marginStart="@dimen/padding_buttons_horizontal"
-            android:layout_marginEnd="@dimen/padding_buttons_horizontal"
+            android:layout_marginTop="54dp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_button"/>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/padding_big"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                style="@style/AppTheme.Hint"
-                android:text="@string/ask_not_have_account"
-                android:gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                style="@style/AppTheme.Link"
-                android:id="@+id/text_sign_up"
-                android:text="@string/sign_up"
-                android:gravity="start"
-                android:layout_marginStart="@dimen/padding_tiny"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

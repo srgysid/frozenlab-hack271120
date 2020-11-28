@@ -27,7 +27,7 @@
             android:resource="@drawable/ic_stat_notifications" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorSecondary" />
+            android:resource="@color/blue" />
 
         <activity
             android:name="com.frozenlab.hack.MainActivity"

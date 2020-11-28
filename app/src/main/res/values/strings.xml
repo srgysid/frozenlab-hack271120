@@ -143,5 +143,7 @@
     <string name="ask_restore_lost_connection">Can\'t connect server. Repeat?</string>
     <string name="repeat">Repeat</string>
     <string name="ok">Ok</string>
+    <string name="hint_profile">Open profile</string>
+    <string name="welcome">Welcome!</string>
 
 </resources>

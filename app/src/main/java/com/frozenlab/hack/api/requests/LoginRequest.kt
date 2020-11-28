@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 class LoginRequest {
 
-    @SerializedName("phone")
-    var phone:    String = ""
+    @SerializedName("username")
+    var login:    String = ""
 
     @SerializedName("password")
     var password: String = ""

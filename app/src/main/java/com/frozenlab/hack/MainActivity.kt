@@ -29,6 +29,7 @@ import com.frozenlab.extensions.*
 import com.frozenlab.hack.api.HackApiContext
 import com.frozenlab.hack.api.HackApi
 import com.frozenlab.hack.api.requests.FCMRequest
+import com.frozenlab.hack.conductor.controller.AboutAppController
 import com.frozenlab.hack.conductor.controller.LoginController
 import com.frozenlab.hack.conductor.controller.MainController
 import com.frozenlab.hack.databinding.ActivityMainBinding
@@ -104,9 +105,9 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         _binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        //setSupportActionBar(binding.coordinator.toolbar)
+        setSupportActionBar(binding.coordinator.toolbar)
 
-        //configureDrawer()
+        configureDrawer()
 
         router = Conductor.attachRouter(
             this,
@@ -303,12 +304,16 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
             binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 
-    fun login() {
+    fun login(newAccessToken: String? = null) {
 
         loginFailed        = false
         userProfileLoaded  = false
 
         userDataLoadedHandler.post(userDataLoadedChecker)
+
+        newAccessToken?.run {
+            accessToken = this
+        }
 
         if(accessToken.isNotBlank()) {
 
@@ -323,6 +328,12 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
     private fun logout() {
 
         removeFCMToken()
+
+        apiRequest(
+            hackApi.logout(),
+            { },
+            showLoading = false
+        )
 
         // This delay is needed before removing the access token in order to give time to the method above
         Handler().postDelayed({
@@ -387,7 +398,6 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
             userDataLoadedHandler.postDelayed(this, USER_DATA_LOADED_CHECK_INTERVAL)
         }
     }
-
 
     private fun start() {
         binding.coordinator.initProgressBar.isVisible = true

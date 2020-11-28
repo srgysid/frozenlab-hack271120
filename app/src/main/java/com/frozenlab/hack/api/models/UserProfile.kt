@@ -1,5 +1,6 @@
 package com.frozenlab.welive.api.models
 
+import com.frozenlab.extensions.asBooleanOrNull
 import com.frozenlab.extensions.asStringOrNull
 import com.google.gson.*
 import java.lang.reflect.Type
@@ -9,6 +10,7 @@ class UserProfile {
     var name:  PersonName = PersonName("")
     var email: String     = ""
     var phone: String     = ""
+    var isChief: Boolean  = false
 
     class UserProfileSerializer: JsonSerializer<UserProfile> {
 
@@ -20,8 +22,9 @@ class UserProfile {
             jsonObject.addProperty("second_name", src?.name?.secondName)
             jsonObject.addProperty("third_name",  src?.name?.thirdName)
 
-            jsonObject.addProperty("email",           src?.email)
-            jsonObject.addProperty("phone",           src?.phone)
+            jsonObject.addProperty("email",       src?.email)
+            jsonObject.addProperty("phone",       src?.phone)
+            jsonObject.addProperty("sign_chief",  src?.isChief)
 
             return jsonObject
         }
@@ -45,8 +48,9 @@ class UserProfile {
                 jsonObject.get("third_name")?.asStringOrNull() ?: ""
             )
 
-            userProfile.email = jsonObject.get("email")?.asStringOrNull() ?: ""
-            userProfile.phone = jsonObject.get("phone")?.asStringOrNull() ?: ""
+            userProfile.email   = jsonObject.get("email")?.asStringOrNull() ?: ""
+            userProfile.phone   = jsonObject.get("phone")?.asStringOrNull() ?: ""
+            userProfile.isChief = jsonObject.get("sign_chief")?.asBooleanOrNull() ?: false
 
             return userProfile
         }
