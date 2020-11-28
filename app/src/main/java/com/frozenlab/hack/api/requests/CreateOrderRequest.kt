@@ -21,4 +21,7 @@ class CreateOrderRequest {
 
     @SerializedName("type_message_id")
     var typeMessageId: Int = -1
+
+    @SerializedName("performer_ids")
+    var performers: IntArray? = null
 }

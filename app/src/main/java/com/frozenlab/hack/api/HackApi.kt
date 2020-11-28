@@ -52,6 +52,9 @@ interface HackApi {
     @GET("/v1/orders/view")
     fun getOrderDetails(@Query("id") issueId: Int): Single<OrderDetails>
 
+    @GET("/v1/orders/performers")
+    fun getPerformers(): Single<ArrayList<Performer>>
+
     // Directories
 
     @GET("/v1/directory/type-order")
@@ -62,10 +65,4 @@ interface HackApi {
 
     @GET("/v1/directory/department")
     fun getDepartments(): Single<ArrayList<Department>>
-}
-
-interface ClassifierApi {
-
-    @POST("/predict")
-    fun getValues(@Body request: TextRequest): Single<ArrayList<ClassifierValue>>
 }

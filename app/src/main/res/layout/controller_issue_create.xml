@@ -25,55 +25,78 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:paddingTop="@dimen/padding_big"
+            android:paddingVertical="@dimen/padding_big"
             android:paddingHorizontal="@dimen/padding_big"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.frozenlab.ui.widgets.EditableWithLabel
-                app:label="@string/required_date"
-                android:id="@+id/editable_required_date"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <com.frozenlab.ui.widgets.EditableWithLabel
+                    app:label="@string/required_date"
+                    android:id="@+id/editable_required_date"
+                    android:inputType="date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    app:tint="@color/blue_light"
+                    android:id="@+id/image_date_picker"
+                    android:src="@drawable/ic_round_date_range_24"
+                    android:scaleType="centerInside"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginEnd="@dimen/padding_medium"
+                    android:layout_width="@dimen/size_icon_medium"
+                    android:layout_height="@dimen/size_icon_medium" />
+            </FrameLayout>
 
             <com.frozenlab.ui.widgets.EditableWithLabel
                 app:label="@string/title"
                 android:id="@+id/editable_title"
-                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_big"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <com.frozenlab.ui.widgets.EditableWithLabel
+            <com.frozenlab.hack.custom.view.SpinnerWithLabelCompoundView
                 app:label="@string/type_card"
-                android:id="@+id/editable_type_card"
-                android:layout_marginTop="@dimen/padding_medium"
+                android:id="@+id/spinner_type_card"
+                android:layout_marginTop="@dimen/padding_big"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <com.frozenlab.ui.widgets.EditableWithLabel
-                app:label="@string/type_performer"
-                android:id="@+id/editable_type_performer"
-                android:layout_marginTop="@dimen/padding_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.frozenlab.ui.widgets.EditableWithLabel
-                app:label="@string/performer"
-                android:id="@+id/editable_performer"
-                android:layout_marginTop="@dimen/padding_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.frozenlab.ui.widgets.EditableWithLabel
-                app:label="@string/priority"
-                android:id="@+id/editable_priority"
-                android:layout_marginTop="@dimen/padding_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <com.frozenlab.ui.widgets.EditableWithLabel
+            <com.frozenlab.hack.custom.view.SpinnerWithLabelCompoundView
                 app:label="@string/type_order"
-                android:id="@+id/editable_type_order"
+                android:id="@+id/spinner_type_order"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.hack.custom.view.SpinnerWithLabelCompoundView
+                app:label="@string/type_message"
+                android:id="@+id/spinner_type_message"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.hack.custom.view.SpinnerWithLabelCompoundView
+                app:label="@string/type_performer"
+                android:id="@+id/spinner_type_performer"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.hack.custom.view.SpinnerWithLabelCompoundView
+                app:label="@string/performer"
+                android:id="@+id/spinner_performer"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.hack.custom.view.SpinnerWithLabelCompoundView
+                app:label="@string/priority"
+                android:id="@+id/spinner_priority"
                 android:layout_marginTop="@dimen/padding_medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

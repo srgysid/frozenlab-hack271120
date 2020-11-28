@@ -16,10 +16,11 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.viewbinding.ViewBinding
 import com.frozenlab.extensions.pushControllerHorizontal
-import com.frozenlab.extensions.showToast
 import com.frozenlab.hack.Preferences
 import com.frozenlab.hack.R
+import com.frozenlab.hack.api.models.OrderFlowType
 import com.frozenlab.hack.api.models.OrderItem
+import com.frozenlab.hack.api.models.OrderStatus
 import com.frozenlab.hack.api.responses.RecognitionPartialResponse
 import com.frozenlab.hack.api.responses.RecognitionResponse
 import com.frozenlab.hack.conductor.controller.base.BaseController
@@ -52,6 +53,8 @@ class MainController: BaseController {
         private const val WEB_SOCKET_CLOSE_NORMAL_CODE   = 1000
         private const val WEB_SOCKET_CLOSE_NORMAL_REASON = "finished"
         private const val WEB_SOCKET_BUFFER_SIZE         = 8192
+
+        private const val KEY_SAVED_TAB = "key_hack_tab"
     }
 
 
@@ -86,7 +89,7 @@ class MainController: BaseController {
         binding.recyclerIssues.setHasFixedSize(true)
         binding.recyclerIssues.adapter = IssueItemAdapter(issuesList).apply {
             onClickListener = { position ->
-                router.pushControllerHorizontal(IssueViewController(issuesList[position].id))
+                router.pushControllerHorizontal(OrderViewController(issuesList[position].id))
             }
         }
 
@@ -113,6 +116,25 @@ class MainController: BaseController {
         super.onDestroy()
         audioRecord?.release()
         webSocket?.cancel()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_SAVED_TAB, currentTab.name)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        currentTab = Tab.valueOf(savedInstanceState.getString(KEY_SAVED_TAB) ?: Tab.NEW.name)
+
+    }
+    override fun onRestoreViewState(view: View, savedViewState: Bundle) {
+        super.onRestoreViewState(view, savedViewState)
+        currentTab = Tab.valueOf(savedViewState.getString(KEY_SAVED_TAB) ?: Tab.NEW.name)
+    }
+
+    override fun onSaveViewState(view: View, outState: Bundle) {
+        super.onSaveViewState(view, outState)
     }
 
     private val onBottomNavigationItemSelected = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
@@ -172,6 +194,8 @@ class MainController: BaseController {
                 }
             }
 
+            loadIssuesList()
+
             for(position in 0..binding.tabLayout.tabCount) {
                 binding.tabLayout.getTabAt(position)?.let {
                     it.customView?.setBackgroundResource(if(it.isSelected) {
@@ -188,8 +212,19 @@ class MainController: BaseController {
     }
 
     private fun loadIssuesList(page: Int? = null) {
+        val statusId = if(currentTab == Tab.NEW) { OrderStatus.CREATED.id } else { null }
+        val flowTypeId = when(currentTab) {
+            Tab.IN -> { OrderFlowType.INCOMING.id }
+            Tab.OUT -> { OrderFlowType.OUTGOING.id }
+            else -> { null }
+        }
+
         apiRequest(
-            hackApi.getOrdersList(page),
+            hackApi.getOrdersList(
+                statusId,
+                flowTypeId,
+                page
+            ),
             { response -> onIssuesListReceived(response) },
             showLoading = false
         )

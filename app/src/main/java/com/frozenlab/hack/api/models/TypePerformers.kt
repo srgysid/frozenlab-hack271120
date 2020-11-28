@@ -5,5 +5,5 @@ import com.frozenlab.hack.R
 
 enum class TypePerformers(val id: Int, @StringRes val titleId: Int) {
     ALL(1, R.string.performers_all),
-    CURRENTS(2, R.string.performers_currents)
+    SELECTED(2, R.string.performers_currents)
 }

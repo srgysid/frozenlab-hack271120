@@ -14,4 +14,9 @@
         <attr name="iconSize" />
     </declare-styleable>
 
+    <declare-styleable name="SpinnerWithLabelCompoundView">
+        <attr name="label" />
+        <attr name="labelAppearance" />
+    </declare-styleable>
+
 </resources>

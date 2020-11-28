@@ -28,10 +28,7 @@ import com.frozenlab.api.toApiError
 import com.frozenlab.extensions.*
 import com.frozenlab.hack.api.HackApiContext
 import com.frozenlab.hack.api.HackApi
-import com.frozenlab.hack.api.models.Department
-import com.frozenlab.hack.api.models.Item
-import com.frozenlab.hack.api.models.OrderItem
-import com.frozenlab.hack.api.models.TypeMessage
+import com.frozenlab.hack.api.models.*
 import com.frozenlab.hack.api.requests.FCMRequest
 import com.frozenlab.hack.conductor.controller.AboutAppController
 import com.frozenlab.hack.conductor.controller.LoginController
@@ -81,9 +78,11 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         Preferences.apiURL,
         hashMapOf(Pair("Authorization", "Bearer $accessToken")),
         hashMapOf(
-            Pair(OrderItem::class.java,   OrderItem.Deserializer()),
-            Pair(UserProfile::class.java, UserProfile.Serializer()),
-            Pair(UserProfile::class.java, UserProfile.Deserializer())
+            Pair(OrderDetails::class.java, OrderDetails.Deserializer()),
+            Pair(OrderItem::class.java,    OrderItem.Deserializer()),
+            Pair(Performer::class.java,    Performer.Deserializer()),
+            Pair(UserProfile::class.java,  UserProfile.Serializer()),
+            Pair(UserProfile::class.java,  UserProfile.Deserializer())
         ),
         Preferences.jsonDateFormat,
         Preferences.okHttpSocketTimeOut,

@@ -6,5 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="@dimen/padding_big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/AppTheme.CaptionRegular"
+            android:id="@+id/text_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/AppTheme.TextSmall"
+            android:id="@+id/text_created_at"
+            android:layout_marginTop="@dimen/padding_tiny"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/AppTheme.TextSmall"
+            android:id="@+id/text_planned_at"
+            android:layout_marginTop="@dimen/padding_tiny"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/AppTheme.TextSmall"
+            android:id="@+id/text_finished_at"
+            android:layout_marginTop="@dimen/padding_tiny"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/text_type_card"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/text_type_performer"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

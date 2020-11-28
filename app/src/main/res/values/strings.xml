@@ -12,6 +12,13 @@
 
     <!-- Templates -->
     <string name="template_distance_units" translatable="false">%1$d %2$s</string>
+    <string name="template_created_at">Created at: %1$s</string>
+    <string name="template_planned_at">Planned at: %1$s</string>
+    <string name="template_finished_at">Finished at: %1$s</string>
+    <string name="template_type_card">Card type: %1$s</string>
+    <string name="template_type_order">Order type: %1$s</string>
+    <string name="template_type_message">Message type: %1$s</string>
+    <string name="template_type_performer">Performer type: %1$s</string>
 
     <!-- Plurals -->
     <plurals name="template_locations_quantity">
@@ -175,5 +182,6 @@
     <string name="type_performer">Type performer</string>
     <string name="label">Label</string>
     <string name="type_card">Type card</string>
+    <string name="type_message">Type of message</string>
 
 </resources>

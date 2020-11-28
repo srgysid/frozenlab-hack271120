@@ -1,30 +1,30 @@
 package com.frozenlab.hack.conductor.controller
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import androidx.core.view.isVisible
 import androidx.viewbinding.ViewBinding
 import com.frozenlab.api.ApiHolder
 import com.frozenlab.api.toApiError
 import com.frozenlab.extensions.showToast
+import com.frozenlab.extensions.toFormattedString
 import com.frozenlab.hack.BuildConfig
 import com.frozenlab.hack.Preferences
 import com.frozenlab.hack.R
 import com.frozenlab.hack.api.ClassifierApi
-import com.frozenlab.hack.api.HackApi
-import com.frozenlab.hack.api.models.Item
-import com.frozenlab.hack.api.models.OrderItem
-import com.frozenlab.hack.api.models.TypeCards
-import com.frozenlab.hack.api.models.TypeMessage
+import com.frozenlab.hack.api.models.*
 import com.frozenlab.hack.api.requests.CreateOrderRequest
 import com.frozenlab.hack.api.requests.TextRequest
 import com.frozenlab.hack.conductor.controller.base.BaseController
 import com.frozenlab.hack.databinding.ControllerIssueCreateBinding
-import com.frozenlab.welive.api.models.UserProfile
+import com.frozenlab.ui.addTextWatcherForDisablingError
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.gson.Gson
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -64,23 +64,75 @@ class OrderCreateController: BaseController {
 
     private val orderApi = apiOrderHolder.api as ClassifierApi
 
-    private var selectedTypeCard: TypeCards? = null
+    private var selectedTypeCard: TypeCard? = null
         set(value) {
             field = value
             value?.let {
-                binding.editableTypeCard.text = mainActivity.getString(it.titleId)
+                binding.spinnerTypeCard.spinner.setSelection(it.ordinal)
             }
         }
     private var selectedTypeOrder: Item? = null
         set(value) {
             field = value
-            value?.let {
-                binding.editableTypeOrder.text = it.title
+            value?.let { item ->
+                binding.spinnerTypeOrder.spinner.setSelection(mainActivity.typesOrders.indexOf(item))
+
+                currentTypesMessage = mainActivity.typesMessages.filter { it.typeOrderId == item.id } as ArrayList<TypeMessage>
+                configureTypeMessageSpinner(binding.spinnerTypeMessage.spinner) { type ->
+                    selectedTypeMessage = type
+                }
             }
         }
 
-    private var selectedTypeMessage: TypeMessage? = null
+    private var currentTypesMessage: ArrayList<TypeMessage> = ArrayList()
 
+    private var selectedTypeMessage: TypeMessage? = null
+        set(value) {
+            field = value
+            value?.let {
+                binding.spinnerTypeMessage.spinner.setSelection(currentTypesMessage.indexOf(it))
+            }
+        }
+    private var selectedTypePerformers: TypePerformers? = null
+        set(value) {
+            field = value
+            value?.let {
+                binding.spinnerTypePerformer.spinner.setSelection(it.ordinal)
+
+                if(value == TypePerformers.SELECTED) {
+                    apiRequest(
+                        hackApi.getPerformers(),
+                        { list ->
+                            binding.spinnerPerformer.isVisible = true
+                            currentPerformers = list
+                            configurePerformerSpinner(binding.spinnerPerformer.spinner) { performer ->
+                                selectedPerformer = performer
+                            }
+                        },
+                        showLoading = false
+                    )
+                } else {
+                    binding.spinnerPerformer.isVisible = false
+                }
+            }
+        }
+
+    private var currentPerformers: ArrayList<Performer> = ArrayList()
+    private var selectedPerformer: Performer? = null
+        set(value) {
+            field = value
+            value?.let {
+                binding.spinnerPerformer.spinner.setSelection(currentPerformers.indexOf(it))
+            }
+        }
+
+    private var selectedPriority: OrderPriority? = null
+        set(value) {
+            field = value
+            value?.let {
+                binding.spinnerPriority.spinner.setSelection(it.ordinal)
+            }
+        }
     override val binding: ControllerIssueCreateBinding get() = _binding!! as ControllerIssueCreateBinding
 
     override fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup): ViewBinding {
@@ -89,11 +141,42 @@ class OrderCreateController: BaseController {
 
     override fun onViewBound(view: View) {
 
+        binding.editableTitle.addTextWatcherForDisablingError()
+
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(onBottomNavigationItemSelected)
+
+        configureTypeCardSpinner(binding.spinnerTypeCard.spinner) { typeCard ->
+            selectedTypeCard = typeCard
+        }
+
+        configureTypeOrderSpinner(binding.spinnerTypeOrder.spinner) { typeOrder ->
+            selectedTypeOrder = typeOrder
+        }
+
+        configureTypeMessageSpinner(binding.spinnerTypeMessage.spinner) { typeMessage ->
+            selectedTypeMessage = typeMessage
+        }
+
+        configureTypePerformersSpinner(binding.spinnerTypePerformer.spinner) { typePerformers ->
+            selectedTypePerformers = typePerformers
+        }
+
+        configurePerformerSpinner(binding.spinnerPerformer.spinner) { performer ->
+            selectedPerformer = performer
+        }
+
+        configurePrioritySpinner(binding.spinnerPriority.spinner) { priority ->
+            selectedPriority = priority
+        }
 
         textOrder?.let {
             classifyTypeCard()
             classifyTypeOrder()
+            binding.editableDescription.text = it
+        }
+
+        binding.imageDatePicker.setOnClickListener {
+            pickDate()
         }
     }
 
@@ -122,8 +205,15 @@ class OrderCreateController: BaseController {
 
         val request = CreateOrderRequest().apply {
 
-            this.title             = binding.editableTitle.text.toString()
-            this.description       = binding.editableDescription.text.toString()
+            this.title         = binding.editableTitle.text.toString()
+            this.description   = binding.editableDescription.text.toString()
+            this.typeCards     = selectedTypeCard?.id ?: -1
+            this.typeMessageId = selectedTypeMessage?.id ?: -1
+            this.typePerformer = selectedTypePerformers?.id ?: -1
+            this.priority      = selectedPriority?.id ?: -1
+            if(selectedTypePerformers == TypePerformers.SELECTED) {
+                this.performers = intArrayOf(selectedPerformer?.id ?: -1)
+            }
         }
 
         val files: ArrayList<MultipartBody.Part> = ArrayList()
@@ -176,6 +266,148 @@ class OrderCreateController: BaseController {
         return result
     }
 
+    private fun configureTypeCardSpinner(spinner: Spinner, onItemSelected: ((TypeCard?) -> Unit)? = null) {
+
+        spinner.adapter = ArrayAdapter(
+            mainActivity,
+            android.R.layout.simple_spinner_dropdown_item,
+            TypeCard.values().map { mainActivity.getString(it.titleId) }
+        )
+
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onItemSelected?.invoke(TypeCard.values()[position])
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        selectedTypeCard?.let { typeCard ->
+            spinner.setSelection(typeCard.ordinal)
+        }
+    }
+
+    private fun configureTypeOrderSpinner(spinner: Spinner, onItemSelected: ((Item?) -> Unit)? = null) {
+
+        spinner.adapter = ArrayAdapter(
+            mainActivity,
+            android.R.layout.simple_spinner_dropdown_item,
+            mainActivity.typesOrders.map { it.title }
+        )
+
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onItemSelected?.invoke(mainActivity.typesOrders[position])
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        selectedTypeOrder?.let { typeOrder ->
+            spinner.setSelection(mainActivity.typesOrders.indexOf(typeOrder))
+        }
+    }
+
+    private fun configureTypeMessageSpinner(spinner: Spinner, onItemSelected: ((TypeMessage?) -> Unit)? = null) {
+
+        spinner.adapter = ArrayAdapter(
+            mainActivity,
+            android.R.layout.simple_spinner_dropdown_item,
+            currentTypesMessage.map { it.title }
+        )
+
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onItemSelected?.invoke(currentTypesMessage[position])
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        selectedTypeMessage?.let { typeMessages ->
+            spinner.setSelection(currentTypesMessage.indexOf(typeMessages))
+        }
+    }
+
+    private fun configureTypePerformersSpinner(spinner: Spinner, onItemSelected: ((TypePerformers?) -> Unit)? = null) {
+
+        spinner.adapter = ArrayAdapter(
+            mainActivity,
+            android.R.layout.simple_spinner_dropdown_item,
+            TypePerformers.values().map { mainActivity.getString(it.titleId) }
+        )
+
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onItemSelected?.invoke(TypePerformers.values()[position])
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        selectedTypePerformers?.let { item ->
+            spinner.setSelection(item.ordinal)
+        }
+    }
+
+    private fun configurePerformerSpinner(spinner: Spinner, onItemSelected: ((Performer?) -> Unit)? = null) {
+
+        spinner.adapter = ArrayAdapter(
+            mainActivity,
+            android.R.layout.simple_spinner_dropdown_item,
+            currentPerformers.map { it.name.shortFullName }
+        )
+
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onItemSelected?.invoke(currentPerformers[position])
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        selectedPerformer?.let { performer ->
+            spinner.setSelection(currentPerformers.indexOf(performer))
+        }
+    }
+
+    private fun configurePrioritySpinner(spinner: Spinner, onItemSelected: ((OrderPriority?) -> Unit)? = null) {
+
+        spinner.adapter = ArrayAdapter(
+            mainActivity,
+            android.R.layout.simple_spinner_dropdown_item,
+            OrderPriority.values().map { mainActivity.getString(it.titleId) }
+        )
+
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onItemSelected?.invoke(OrderPriority.values()[position])
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+
+        selectedPriority?.let { item ->
+            spinner.setSelection(item.ordinal)
+        }
+    }
+
+    private fun pickDate() {
+
+        val calendar = Calendar.getInstance()
+
+        val pickerBuilder = MaterialDatePicker.Builder.datePicker()
+
+        pickerBuilder.setSelection(calendar.time.time)
+
+        val picker = pickerBuilder.build()
+        picker.show(mainActivity.supportFragmentManager, picker.toString())
+
+        picker.addOnPositiveButtonClickListener { millis ->
+            binding.editableRequiredDate.text = Date(millis).toFormattedString(mainActivity.getString(R.string.format_date))
+        }
+    }
+
     private fun classifyTypeCard() {
 
         val request = TextRequest().apply {
@@ -187,7 +419,7 @@ class OrderCreateController: BaseController {
                 if(list.size == 0)
                     return@apiRequest
                 val topValue = list[0]
-                selectedTypeCard = TypeCards.values().find { it.id == topValue.value }
+                selectedTypeCard = TypeCard.values().find { it.id == topValue.value }
             },
             showLoading = false
         )

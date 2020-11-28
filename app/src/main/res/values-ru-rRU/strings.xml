@@ -6,6 +6,14 @@
     <!-- Formats -->
     <string name="format_date">dd.MM.yyyy</string>
 
+    <string name="template_created_at">Дата добавления: %1$s</string>
+    <string name="template_planned_at">Плановая дата завершения: %1$s</string>
+    <string name="template_finished_at">Фактическая дата завершения: %1$s</string>
+    <string name="template_type_card">Тип карточки: %1$s</string>
+    <string name="template_type_order">Вид поручения: %1$s</string>
+    <string name="template_type_message">Тип сообщения: %1$s</string>
+    <string name="template_type_performer">Тип исполнения: %1$s</string>
+
     <!-- Plurals -->
     <plurals name="template_locations_quantity">
         <item quantity="one">%1$d объект</item>
@@ -164,15 +172,16 @@
     <string name="card_constant_periodic">Постоянные заявки</string>
     <string name="card_message">Информационное сообщение</string>
     <string name="card_instruction">Поручение</string>
-    <string name="performers_all">Все</string>
-    <string name="performers_currents">Выбранные</string>
+    <string name="performers_all">Общий</string>
+    <string name="performers_currents">Индивидувльный</string>
     <string name="priority_most_important">Особо важный</string>
     <string name="priority_high">Высокий</string>
     <string name="priority_medium">Средний</string>
     <string name="priority_low">Низкий</string>
-    <string name="type_performer">Тип исполнителя</string>
+    <string name="type_performer">Тип исполнения</string>
     <string name="label">Label</string>
     <string name="type_card">Тип карточки</string>
+    <string name="type_message">Тип сообщения</string>
 
 
 </resources>
