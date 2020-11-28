@@ -28,11 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageButton
-                android:src="@drawable/ic_round_filter_list_24"
-                android:layout_width="28dp"
-                android:layout_height="28dp" />
-
             <com.google.android.material.tabs.TabLayout
                 app:tabMode="fixed"
                 app:tabBackground="@null"
@@ -45,15 +40,23 @@
                 app:tabMinWidth="70dp"
                 app:tabContentStart="@dimen/padding_big"
                 android:id="@+id/tab_layout"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/height_toolbar" />
             
         </LinearLayout>
 
+        <TextView
+            style="@style/AppTheme.CaptionSmall"
+            app:layout_constraintTop_toBottomOf="@id/layout_buttons"
+            android:id="@+id/text_list_caption"
+            android:text="@string/issues_list_all"
+            android:layout_marginVertical="@dimen/padding_medium"
+            android:layout_marginHorizontal="@dimen/padding_big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
-            app:layout_constraintTop_toBottomOf="@id/layout_buttons"
+            app:layout_constraintTop_toBottomOf="@id/text_list_caption"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/recycler_issues"

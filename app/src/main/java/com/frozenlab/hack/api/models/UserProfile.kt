@@ -12,7 +12,7 @@ class UserProfile {
     var phone: String     = ""
     var isChief: Boolean  = false
 
-    class UserProfileSerializer: JsonSerializer<UserProfile> {
+    class Serializer: JsonSerializer<UserProfile> {
 
         override fun serialize(src: UserProfile?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement {
 
@@ -30,7 +30,7 @@ class UserProfile {
         }
     }
 
-    class UserProfileDeserializer : JsonDeserializer<UserProfile> {
+    class Deserializer : JsonDeserializer<UserProfile> {
 
         override fun deserialize(json: JsonElement?, typeOfT: Type?, context: JsonDeserializationContext?): UserProfile {
 

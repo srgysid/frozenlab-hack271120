@@ -146,8 +146,33 @@
     <string name="notifications">Уведомления</string>
     <string name="profile">Профиль</string>
     <string name="issues_list">Список задач</string>
+    <string name="issues_list_all">Список всех задач</string>
     <string name="tab_new">Новые</string>
     <string name="tab_in">Личные</string>
     <string name="tab_out">Назначенные</string>
+    <string name="hold_button_to_record">Удерживайте кнопку \"Микрофон\", чтобы записать распоряжение</string>
+    <string name="or_input_manually">или заполните его вручную</string>
+    <string name="create_order">Создать задачу</string>
+    <string name="performer">Исполнитель</string>
+    <string name="required_date">Требуемый срок исполнения</string>
+    <string name="actual_date">Фактический срок исполнения</string>
+    <string name="title">Заголовок</string>
+    <string name="priority">Важность/проритет</string>
+    <string name="type_order">Вид поручения</string>
+    <string name="comment">Комментарий</string>
+    <string name="back">Назад</string>
+    <string name="card_constant_periodic">Постоянные заявки</string>
+    <string name="card_message">Информационное сообщение</string>
+    <string name="card_instruction">Поручение</string>
+    <string name="performers_all">Все</string>
+    <string name="performers_currents">Выбранные</string>
+    <string name="priority_most_important">Особо важный</string>
+    <string name="priority_high">Высокий</string>
+    <string name="priority_medium">Средний</string>
+    <string name="priority_low">Низкий</string>
+    <string name="type_performer">Тип исполнителя</string>
+    <string name="label">Label</string>
+    <string name="type_card">Тип карточки</string>
+
 
 </resources>

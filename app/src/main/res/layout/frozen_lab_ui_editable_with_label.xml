@@ -10,6 +10,8 @@
     <TextView
         style="@style/AppTheme.CaptionSmall"
         android:id="@+id/text_label"
+        android:labelFor="@id/editable"
+        android:contentDescription="@string/label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

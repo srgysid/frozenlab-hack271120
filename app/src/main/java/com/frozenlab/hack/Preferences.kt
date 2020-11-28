@@ -16,6 +16,8 @@ object Preferences {
 
     // Settings
     const val apiURL:              String = "https://api-ra.welive.cloud"
+    const val apiCardURL:          String = "https://ai-rosatom-card.welive.cloud"
+    const val apiOrderURL:         String = "https://ai-rosatom-ass.welive.cloud"
     const val voiceUrl:            String = "ws://45.137.190.230:27001"
     const val privacyPolicyUrl:    String = "https://"
     const val okHttpSocketTimeOut: Long   = 60 // Seconds (default: 10 seconds)

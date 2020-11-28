@@ -123,14 +123,14 @@
 
     <!-- Editable -->
 
-    <style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+    <style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxCornerRadiusTopStart">@dimen/cr_input_text</item>
         <item name="boxCornerRadiusTopEnd">@dimen/cr_input_text</item>
         <item name="boxCornerRadiusBottomStart">@dimen/cr_input_text</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/cr_input_text</item>
-        <item name="boxBackgroundMode">none</item>
         <item name="boxStrokeWidthFocused">2dp</item>
-        <item name="boxStrokeWidth">12dp</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxBackgroundMode">outline</item>
         <item name="boxStrokeColor">@color/selector_text_input_box_stroke</item>
         <item name="boxBackgroundColor">@color/selector_text_input_box_background</item>
         <item name="startIconTint">@color/reddish</item>
@@ -152,6 +152,7 @@
     </style>
 
     <style name="AppTheme.TextInputLayout.OnColored">
+        <item name="boxBackgroundMode">none</item>
         <item name="boxStrokeColor">@color/selector_text_input_box_stroke_on_colored</item>
         <item name="boxBackgroundColor">@color/selector_text_input_box_background_on_colored</item>
     </style>

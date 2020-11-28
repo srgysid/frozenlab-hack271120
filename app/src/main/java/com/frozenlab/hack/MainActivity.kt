@@ -28,6 +28,10 @@ import com.frozenlab.api.toApiError
 import com.frozenlab.extensions.*
 import com.frozenlab.hack.api.HackApiContext
 import com.frozenlab.hack.api.HackApi
+import com.frozenlab.hack.api.models.Department
+import com.frozenlab.hack.api.models.Item
+import com.frozenlab.hack.api.models.OrderItem
+import com.frozenlab.hack.api.models.TypeMessage
 import com.frozenlab.hack.api.requests.FCMRequest
 import com.frozenlab.hack.conductor.controller.AboutAppController
 import com.frozenlab.hack.conductor.controller.LoginController
@@ -40,7 +44,6 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
 
@@ -62,6 +65,10 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
             updateUserProfileViews()
         }
 
+    val typesOrders:   ArrayList<Item> = ArrayList()
+    val typesMessages: ArrayList<TypeMessage> = ArrayList()
+    val departments:   ArrayList<Department> = ArrayList()
+
     private var accessToken: String = Preferences.accessToken
         set(value) {
             field = value
@@ -73,7 +80,11 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         HackApi::class.java,
         Preferences.apiURL,
         hashMapOf(Pair("Authorization", "Bearer $accessToken")),
-        hashMapOf(),
+        hashMapOf(
+            Pair(OrderItem::class.java,   OrderItem.Deserializer()),
+            Pair(UserProfile::class.java, UserProfile.Serializer()),
+            Pair(UserProfile::class.java, UserProfile.Deserializer())
+        ),
         Preferences.jsonDateFormat,
         Preferences.okHttpSocketTimeOut,
         BuildConfig.DEBUG
@@ -92,8 +103,11 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
             .create()
     }
 
-    private var loginFailed = false
-    private var userProfileLoaded  = false
+    private var loginFailed          = false
+    private var userProfileLoaded    = false
+    private var typesOrdersLoaded    = false
+    private var typesMessagesLoaded  = false
+    private var departmentsLoaded    = false
     private val userDataLoadedHandler: Handler = Handler()
 
     private var _binding: ActivityMainBinding? = null
@@ -318,7 +332,10 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         if(accessToken.isNotBlank()) {
 
             applyFCMToken()
-            getCurrentUserProfileAndAccounts()
+            getCurrentUserProfile()
+            getTypesOrders()
+            getTypesMessages()
+            getDepartments()
 
         } else {
             loginFailed = true
@@ -383,7 +400,7 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
                 return
             }
 
-            if(userProfileLoaded) {
+            if(userProfileLoaded && typesOrdersLoaded && typesMessagesLoaded && departmentsLoaded) {
 
                 binding.coordinator.initProgressBar.isVisible = false
 
@@ -437,13 +454,55 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         binding.menuItemProfile.title = currentUserProfile?.name?.firstThirdName
     }
 
-    private fun getCurrentUserProfileAndAccounts() {
+    private fun getCurrentUserProfile() {
 
         this.apiRequest(
             hackApi.getUserProfile(),
             { userProfile ->
                 userProfileLoaded  = true
                 currentUserProfile = userProfile
+            },
+            { handleThrowable(it, true) },
+            false
+        )
+    }
+
+    private fun getTypesOrders() {
+
+        this.apiRequest(
+            hackApi.getOrderTypes(),
+            { list ->
+                typesOrdersLoaded  = true
+                typesOrders.clear()
+                typesOrders.addAll(list)
+            },
+            { handleThrowable(it, true) },
+            false
+        )
+    }
+
+    private fun getTypesMessages() {
+
+        this.apiRequest(
+            hackApi.getMessageTypes(),
+            { list ->
+                typesMessagesLoaded  = true
+                typesMessages.clear()
+                typesMessages.addAll(list)
+            },
+            { handleThrowable(it, true) },
+            false
+        )
+    }
+
+    private fun getDepartments() {
+
+        this.apiRequest(
+            hackApi.getDepartments(),
+            { list ->
+                departmentsLoaded  = true
+                departments.clear()
+                departments.addAll(list)
             },
             { handleThrowable(it, true) },
             false
@@ -488,7 +547,7 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         handleThrowable(throwable, false)
     }
 
-    private fun handleThrowable(throwable: Throwable, exitOnNetworkError: Boolean = false) {
+    fun handleThrowable(throwable: Throwable, exitOnNetworkError: Boolean = false) {
 
         val apiError = throwable.toApiError()
 

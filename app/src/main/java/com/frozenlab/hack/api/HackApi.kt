@@ -1,18 +1,18 @@
 package com.frozenlab.hack.api
 
-import com.frozenlab.hack.api.models.IssueDetails
-import com.frozenlab.hack.api.models.IssueItem
+import com.frozenlab.hack.api.models.*
+import com.frozenlab.hack.api.requests.CreateOrderRequest
 import com.frozenlab.hack.api.requests.FCMRequest
 import com.frozenlab.hack.api.requests.LoginRequest
+import com.frozenlab.hack.api.requests.TextRequest
 import com.frozenlab.hack.api.responses.NewAccessTokenResponse
 import com.frozenlab.welive.api.models.UserProfile
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface HackApi {
 
@@ -32,14 +32,40 @@ interface HackApi {
     @GET("/v1/user/profile")
     fun getUserProfile(): Single<UserProfile>
 
-    // Issues
+    // Orders
+
+    @Multipart
+    @POST("/v1/orders/create")
+    fun createOrder(
+        @Part("json_data") request: RequestBody,
+        @Part files:  ArrayList<MultipartBody.Part>
+    ): Completable
 
     @GET("/v1/orders")
-    fun getIssuesList(
-        @Query("page")     page:         Int? = null,
-        @Query("per-page") countPerPage: Int? = 5
-    ): Single<Response<ArrayList<IssueItem>>>
+    fun getOrdersList(
+        @Query("status_id")    statusId:     Int? = null,
+        @Query("flow_type_id") flowTypeId:   Int? = null,
+        @Query("page")         page:         Int? = null,
+        @Query("per-page")     countPerPage: Int? = null
+    ): Single<Response<ArrayList<OrderItem>>>
 
     @GET("/v1/orders/view")
-    fun getIssueDetails(@Query("id") issueId: Int): Single<IssueDetails>
+    fun getOrderDetails(@Query("id") issueId: Int): Single<OrderDetails>
+
+    // Directories
+
+    @GET("/v1/directory/type-order")
+    fun getOrderTypes(): Single<ArrayList<Item>>
+
+    @GET("/v1/directory/type-message")
+    fun getMessageTypes(): Single<ArrayList<TypeMessage>>
+
+    @GET("/v1/directory/department")
+    fun getDepartments(): Single<ArrayList<Department>>
+}
+
+interface ClassifierApi {
+
+    @POST("/predict")
+    fun getValues(@Body request: TextRequest): Single<ArrayList<ClassifierValue>>
 }

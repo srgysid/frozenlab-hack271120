@@ -40,7 +40,7 @@
     <dimen name="size_image">96dp</dimen>
     <dimen name="height_sliding_panel_collapsed">96dp</dimen> <!-- bottomNavigationPanel_height(56dp) + handle -->
     <dimen name="height_sliding_panel_expanded">266dp</dimen> <!-- height_sliding_panel_collapsed + content -->
-
+    <dimen name="height_drop_down_list_item">40dp</dimen>
     <!-- Elevation -->
     <dimen name="elevation_card">4dp</dimen>
 

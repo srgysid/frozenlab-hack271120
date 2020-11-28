@@ -148,8 +148,32 @@
     <string name="notifications">Notifications</string>
     <string name="profile">Profile</string>
     <string name="issues_list">Task list</string>
+    <string name="issues_list_all">All tasks list</string>
     <string name="tab_new">New</string>
     <string name="tab_in">In</string>
     <string name="tab_out">Out</string>
+    <string name="hold_button_to_record">Press and hold button \"Mic\" to record order</string>
+    <string name="or_input_manually">or fill it app manually</string>
+    <string name="create_order">Create order</string>
+    <string name="performer">performer</string>
+    <string name="required_date">Required date</string>
+    <string name="actual_date">Actual date</string>
+    <string name="title">Title</string>
+    <string name="priority">Priority</string>
+    <string name="type_order">Type of order</string>
+    <string name="comment">Comment</string>
+    <string name="back">Back</string>
+    <string name="card_constant_periodic">Constant/Periodic Task</string>
+    <string name="card_message">Message</string>
+    <string name="card_instruction">Instruction</string>
+    <string name="performers_all">All</string>
+    <string name="performers_currents">Selected</string>
+    <string name="priority_most_important">Most important</string>
+    <string name="priority_high">High</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_low">Low</string>
+    <string name="type_performer">Type performer</string>
+    <string name="label">Label</string>
+    <string name="type_card">Type card</string>
 
 </resources>

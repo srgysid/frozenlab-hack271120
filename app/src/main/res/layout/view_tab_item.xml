@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/text_title"
+        android:paddingVertical="@dimen/padding_small"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

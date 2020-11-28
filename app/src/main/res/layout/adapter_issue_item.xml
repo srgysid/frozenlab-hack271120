@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingVertical="@dimen/padding_small"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -36,12 +37,6 @@
             android:id="@+id/text_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-
-        <View
-            android:background="@color/gray_dark"
-            android:layout_marginTop="@dimen/padding_tiny"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/stroke_width_separator" />
 
     </LinearLayout>
 

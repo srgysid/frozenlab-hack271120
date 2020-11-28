@@ -7,7 +7,7 @@
         android:title="@string/notifications"/>
 
     <item
-        android:id="@+id/bottom_menu_item_home"
+        android:id="@+id/bottom_menu_item_add"
         android:icon="@drawable/ic_round_add_24"
         android:title="@string/add"/>
 

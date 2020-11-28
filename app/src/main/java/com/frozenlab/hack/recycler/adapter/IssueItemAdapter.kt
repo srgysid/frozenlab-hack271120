@@ -1,15 +1,12 @@
 package com.frozenlab.hack.recycler.adapter
 
-import android.graphics.drawable.PictureDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
-import com.frozenlab.hack.api.models.IssueItem
+import com.frozenlab.hack.api.models.OrderItem
 import com.frozenlab.hack.databinding.AdapterIssueItemBinding
 
-class IssueItemAdapter(private val items: ArrayList<IssueItem>): RecyclerView.Adapter<IssueItemAdapter.ViewHolder>() {
+class IssueItemAdapter(private val items: ArrayList<OrderItem>): RecyclerView.Adapter<IssueItemAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = items.size
 
@@ -27,8 +24,8 @@ class IssueItemAdapter(private val items: ArrayList<IssueItem>): RecyclerView.Ad
         val item = items[position]
         val context = holder.itemView.context
 
-        holder.binding.textTitle.text = item.title
-        holder.binding.textHint.text  = item.description
+        holder.binding.textTitle.text = item.typeMessageName
+        holder.binding.textHint.text  = item.typeOrderName
     }
 
     var onClickListener: ((Int) -> Unit)? = null

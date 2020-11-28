@@ -1,17 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.button.MaterialButton
-        style="@style/AppTheme.ButtonText"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        style="@style/AppTheme.ScreenTitle"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/button_voice"
-        android:text="Voice"
-        android:layout_marginHorizontal="@dimen/padding_button_horizontal"
+        android:id="@+id/text_caption_screen"
+        android:text="@string/create_order"
+        android:background="@color/blue_dark"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_button" />
+        android:layout_height="@dimen/height_toolbar" />
+
+    <androidx.core.widget.NestedScrollView
+        app:layout_constraintTop_toBottomOf="@id/text_caption_screen"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_big"
+            android:paddingHorizontal="@dimen/padding_big"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.frozenlab.ui.widgets.EditableWithLabel
+                app:label="@string/required_date"
+                android:id="@+id/editable_required_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.ui.widgets.EditableWithLabel
+                app:label="@string/title"
+                android:id="@+id/editable_title"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.ui.widgets.EditableWithLabel
+                app:label="@string/type_card"
+                android:id="@+id/editable_type_card"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.ui.widgets.EditableWithLabel
+                app:label="@string/type_performer"
+                android:id="@+id/editable_type_performer"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.ui.widgets.EditableWithLabel
+                app:label="@string/performer"
+                android:id="@+id/editable_performer"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.ui.widgets.EditableWithLabel
+                app:label="@string/priority"
+                android:id="@+id/editable_priority"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.ui.widgets.EditableWithLabel
+                app:label="@string/type_order"
+                android:id="@+id/editable_type_order"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.frozenlab.ui.widgets.EditableWithLabel
+                app:label="@string/comment"
+                android:id="@+id/editable_description"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@color/white"
+        app:labelVisibilityMode="unlabeled"
+        app:itemRippleColor="@null"
+        app:menu="@menu/bottom_menu_confirm"
+        android:id="@+id/bottom_navigation_view"
+        android:background="@color/blue"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

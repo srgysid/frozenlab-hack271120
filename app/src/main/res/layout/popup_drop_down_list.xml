@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
+    android:layout_gravity="center"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content">
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:id="@+id/recycler"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_marginBottom="@dimen/padding_small"
+        android:layout_marginStart="@dimen/padding_big"
+        android:layout_marginEnd="@dimen/padding_big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/image_more_items_top"
+        android:src="@drawable/ic_chevron_up_gray_16dp"
+        android:scaleType="centerInside"
+        android:background="@color/white"
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <ImageView
+        android:id="@+id/image_more_items_bottom"
+        android:src="@drawable/ic_chevron_down_gray_16dp"
+        android:scaleType="centerInside"
+        android:background="@color/white"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+</androidx.cardview.widget.CardView>
