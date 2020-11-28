@@ -10,15 +10,14 @@ import androidx.viewbinding.ViewBinding
 import com.frozenlab.hack.BuildConfig
 import com.frozenlab.hack.Preferences
 import com.frozenlab.hack.R
+import com.frozenlab.hack.conductor.controller.base.BaseController
 import com.frozenlab.hack.conductor.controller.base.ToolbarController
 import com.frozenlab.hack.databinding.ControllerAboutAppBinding
 
-class AboutAppController: ToolbarController {
+class AboutAppController: BaseController {
 
     constructor(): super()
     constructor(args: Bundle): super(args)
-
-    override val showToolbar: Boolean = true
 
     override val binding: ControllerAboutAppBinding get() = _binding!! as ControllerAboutAppBinding
 
@@ -33,11 +32,5 @@ class AboutAppController: ToolbarController {
         binding.textUserAgreement.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Preferences.privacyPolicyUrl)))
         }
-
-    }
-
-    override fun onAttach(view: View) {
-        super.onAttach(view)
-        setTitle(R.string.about_application)
     }
 }

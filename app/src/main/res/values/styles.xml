@@ -38,6 +38,12 @@
         <item name="android:fontFamily">@font/rosatom_regular</item>
     </style>
 
+    <style name="AppTheme.ScreenTitle" parent="AppTheme.CaptionRegular">
+        <item name="android:background">@color/blue_dark</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
     <style name="AppTheme.TextSmall">
         <item name="android:textSize">@dimen/text_size_small</item>
     </style>

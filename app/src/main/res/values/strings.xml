@@ -145,5 +145,11 @@
     <string name="ok">Ok</string>
     <string name="hint_profile">Open profile</string>
     <string name="welcome">Welcome!</string>
+    <string name="notifications">Notifications</string>
+    <string name="profile">Profile</string>
+    <string name="issues_list">Task list</string>
+    <string name="tab_new">New</string>
+    <string name="tab_in">In</string>
+    <string name="tab_out">Out</string>
 
 </resources>

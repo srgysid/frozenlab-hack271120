@@ -1,15 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/recycler_issues"
-        android:layout_marginHorizontal="@dimen/padding_big"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_button" />
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            style="@style/AppTheme.ScreenTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/text_caption_screen"
+            android:text="@string/issues_list"
+            android:background="@color/blue_dark"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_toolbar" />
+
+        <LinearLayout
+            app:layout_constraintTop_toBottomOf="@id/text_caption_screen"
+            android:id="@+id/layout_buttons"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:src="@drawable/ic_round_filter_list_24"
+                android:layout_width="28dp"
+                android:layout_height="28dp" />
+
+            <com.google.android.material.tabs.TabLayout
+                app:tabMode="fixed"
+                app:tabBackground="@null"
+                app:tabIndicator="@null"
+                app:tabRippleColor="@null"
+                app:tabPaddingTop="0dp"
+                app:tabPaddingBottom="0dp"
+                app:tabPaddingStart="@dimen/padding_tiny"
+                app:tabPaddingEnd="@dimen/padding_tiny"
+                app:tabMinWidth="70dp"
+                app:tabContentStart="@dimen/padding_big"
+                android:id="@+id/tab_layout"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_toolbar" />
+            
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layout_constraintTop_toBottomOf="@id/layout_buttons"
+            app:layout_constraintBottom_toTopOf="@id/bottom_navigation_view"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/recycler_issues"
+            android:layout_marginHorizontal="@dimen/padding_big"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:itemIconTint="@color/white"
+            app:labelVisibilityMode="unlabeled"
+            app:itemRippleColor="@null"
+            app:menu="@menu/bottom_menu_main"
+            android:id="@+id/bottom_navigation_view"
+            android:background="@color/blue"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_toolbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

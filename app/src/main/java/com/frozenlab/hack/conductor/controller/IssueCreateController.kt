@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import com.frozenlab.hack.Preferences
+import com.frozenlab.hack.conductor.controller.base.BaseController
 import com.frozenlab.hack.conductor.controller.base.ToolbarController
 import com.frozenlab.hack.databinding.ControllerIssueCreateBinding
 import com.frozenlab.hack.databinding.ControllerMainBinding
@@ -24,7 +25,7 @@ import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class IssueCreateController: ToolbarController {
+class IssueCreateController: BaseController {
 
     companion object {
         private const val WEB_SOCKET_CLOSE_NORMAL_CODE   = 1000
@@ -34,8 +35,6 @@ class IssueCreateController: ToolbarController {
 
     constructor(): super()
     constructor(args: Bundle): super(args)
-
-    override val showToolbar: Boolean get() = true
 
     private var webSocket:   WebSocket? = null
     private var audioRecord: AudioRecord? = null

@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         _binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        setSupportActionBar(binding.coordinator.toolbar)
+        //setSupportActionBar(binding.coordinator.toolbar)
 
         configureDrawer()
 

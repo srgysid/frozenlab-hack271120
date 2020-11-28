@@ -12,6 +12,7 @@
     <color name="blue">#025EA1</color>
     <color name="blue_dark">#003274</color>
     <color name="blue_light">#6CACE4</color>
+    <color name="blue_light_shade">#446CACE4</color>
     <color name="orange">#DC8600</color>
 
     <color name="bg_gradient_dark">#15256D</color>

@@ -143,5 +143,11 @@
     <string name="ok">Ок</string>
     <string name="hint_profile">Посмотреть свой профиль</string>
     <string name="welcome">Добро пожаловать!</string>
+    <string name="notifications">Уведомления</string>
+    <string name="profile">Профиль</string>
+    <string name="issues_list">Список задач</string>
+    <string name="tab_new">Новые</string>
+    <string name="tab_in">Личные</string>
+    <string name="tab_out">Назначенные</string>
 
 </resources>

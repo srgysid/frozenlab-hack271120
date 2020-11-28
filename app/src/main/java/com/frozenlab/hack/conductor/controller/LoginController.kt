@@ -14,10 +14,11 @@ import com.frozenlab.hack.R
 import com.frozenlab.hack.conductor.controller.base.ToolbarController
 import com.frozenlab.hack.api.requests.LoginRequest
 import com.frozenlab.hack.api.responses.NewAccessTokenResponse
+import com.frozenlab.hack.conductor.controller.base.BaseController
 import com.frozenlab.hack.databinding.ControllerLoginBinding
 import com.frozenlab.ui.addTextWatcherForDisablingError
 
-class LoginController: ToolbarController {
+class LoginController: BaseController {
 
     private companion object {
         private const val KEY_SAVED_LOGIN    = "key_hack_login"
@@ -26,8 +27,6 @@ class LoginController: ToolbarController {
 
     constructor(): super()
     constructor(args: Bundle): super(args)
-
-    override val showToolbar: Boolean = false
 
     override val binding: ControllerLoginBinding get() = _binding!! as ControllerLoginBinding
 

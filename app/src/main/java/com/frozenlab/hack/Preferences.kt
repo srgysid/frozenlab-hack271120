@@ -9,7 +9,6 @@ object Preferences {
         Context.MODE_PRIVATE
     )
 
-
     private enum class PreferencesValues(val prefName: String, val defaultValue: Any?) {
         ACCESS_TOKEN( "PREF_ACCESS_TOKEN", ""   ),
         FCM_TOKEN(    "PREF_FCM_TOKEN",    ""   ),
