@@ -2,7 +2,7 @@
 
     <string name="default_notification_channel_id" translatable="false">com.frozenlab.hack.default_notification_channel</string>
     <string name="default_notification_channel_name" translatable="false">Default notification channel</string>
-    <string name="app_name">Hack 11/2020</string>
+    <string name="app_name">Center</string>
 
     <!-- Masks-->
     <string name="mask_phone" translatable="false">+7 ([000]) [000]-[00]-[00]</string>

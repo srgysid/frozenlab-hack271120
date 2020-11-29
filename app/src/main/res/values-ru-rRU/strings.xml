@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Хакатон 11.2020</string>
+    <string name="app_name">Центр</string>
 
     <!-- Formats -->
     <string name="format_date">dd.MM.yyyy</string>
