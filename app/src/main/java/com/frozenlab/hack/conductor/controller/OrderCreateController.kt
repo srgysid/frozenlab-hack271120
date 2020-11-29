@@ -154,6 +154,9 @@ class OrderCreateController: BaseController {
     override fun onViewBound(view: View) {
 
         binding.editableTitle.addTextWatcherForDisablingError()
+        binding.editableTitle.text = "Поручение"
+
+        binding.editableRequiredDate.text = Date(Calendar.getInstance().time.time + 84600000 * 2).toFormattedString(mainActivity.getString(R.string.format_date))
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(onBottomNavigationItemSelected)
 
