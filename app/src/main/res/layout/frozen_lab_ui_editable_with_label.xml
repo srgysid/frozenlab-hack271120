@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        style="@style/AppTheme.CaptionSmall"
+        style="@style/AppTheme.Label"
         android:id="@+id/text_label"
         android:labelFor="@id/editable"
         android:contentDescription="@string/label"

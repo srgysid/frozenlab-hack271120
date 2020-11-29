@@ -12,10 +12,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/image_logo"
         android:src="@drawable/ic_logo"
+        android:scaleType="fitXY"
         android:layout_marginTop="@dimen/padding_vast"
         android:layout_gravity="center"
         android:layout_width="120dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="120dp" />
 
     <TextView
         style="@style/AppTheme.Label"
