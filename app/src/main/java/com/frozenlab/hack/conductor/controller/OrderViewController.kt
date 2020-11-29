@@ -9,6 +9,7 @@ import androidx.viewbinding.ViewBinding
 import com.frozenlab.extensions.toFormattedString
 import com.frozenlab.hack.R
 import com.frozenlab.hack.api.models.OrderDetails
+import com.frozenlab.hack.api.models.OrderPriority
 import com.frozenlab.hack.api.models.TypeCard
 import com.frozenlab.hack.api.models.TypePerformers
 import com.frozenlab.hack.conductor.controller.base.BaseController
@@ -75,15 +76,23 @@ class OrderViewController: BaseController {
         } ?: false
 
         binding.textTypeCard.isVisible = TypeCard.values().find { it.id == order.typeCards }?.let {
-            val title = mainActivity.getString(it.titleId)
-            binding.textTypeCard.text = mainActivity.getString(R.string.template_type_card, title)
+            binding.textTypeCard.text = mainActivity.getString(it.titleId)
             true
         } ?: false
 
         binding.textTypePerformer.isVisible = TypePerformers.values().find { it.id == order.typePerformers }?.let {
-            val title = mainActivity.getString(it.titleId)
-            binding.textTypePerformer.text = mainActivity.getString(R.string.template_type_performer, title)
+            binding.textTypePerformer.text = mainActivity.getString(it.titleId)
             true
         } ?: false
+
+        binding.textPriority.isVisible = OrderPriority.values().find { it.id == order.priority }?.let {
+            binding.textPriority.text = mainActivity.getString(it.titleId)
+            true
+        } ?: false
+
+        binding.textDepartment.isVisible = if(order.departmentName.isNotBlank()) {
+            binding.textDepartment.text = order.departmentName
+            true
+        } else { false }
     }
 }

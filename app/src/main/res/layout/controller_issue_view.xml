@@ -45,14 +45,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <com.frozenlab.hack.custom.view.TextLabelledView
+            app:label="@string/type_card"
             android:id="@+id/text_type_card"
             android:layout_marginTop="@dimen/padding_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <com.frozenlab.hack.custom.view.TextLabelledView
+            app:label="@string/type_performer"
             android:id="@+id/text_type_performer"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.frozenlab.hack.custom.view.TextLabelledView
+            app:label="@string/priority"
+            android:id="@+id/text_priority"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.frozenlab.hack.custom.view.TextLabelledView
+            app:label="@string/department"
+            android:id="@+id/text_department"
             android:layout_marginTop="@dimen/padding_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

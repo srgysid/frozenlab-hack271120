@@ -187,5 +187,6 @@
     <string name="your_order_classified">Your order was classified as</string>
     <string name="label_type_card">Card type: </string>
     <string name="label_type_order">Order type: </string>
+    <string name="department">Department</string>
 
 </resources>
