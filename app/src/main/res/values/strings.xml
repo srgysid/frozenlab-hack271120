@@ -183,5 +183,9 @@
     <string name="label">Label</string>
     <string name="type_card">Type card</string>
     <string name="type_message">Type of message</string>
+    <string name="text_order">Text of your order</string>
+    <string name="your_order_classified">Your order was classified as</string>
+    <string name="label_type_card">Card type: </string>
+    <string name="label_type_order">Order type: </string>
 
 </resources>

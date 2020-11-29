@@ -17,6 +17,7 @@
 
         <ImageView
             app:tint="@color/black"
+            android:id="@+id/image_close"
             android:src="@drawable/ic_round_close_24"
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/padding_medium"
@@ -58,6 +59,7 @@
             android:src="@drawable/ic_round_edit_24"
             android:scaleType="fitXY"
             android:background="@color/white"
+            android:padding="6dp"
             android:layout_marginVertical="@dimen/padding_big"
             android:layout_marginHorizontal="@dimen/padding_double_large"
             android:layout_gravity="center"

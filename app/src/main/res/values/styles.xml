@@ -35,7 +35,7 @@
 
     <style name="AppTheme.CaptionSmall">
         <item name="android:textSize">@dimen/text_size_caption_small</item>
-        <item name="android:fontFamily">@font/rosatom_regular</item>
+        <item name="android:fontFamily">@font/rosatom_bold</item>
     </style>
 
     <style name="AppTheme.ScreenTitle" parent="AppTheme.CaptionRegular">
@@ -76,13 +76,14 @@
 
     <style name="AppTheme.Link">
         <item name="android:fontFamily">@font/rosatom_bold</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/blue</item>
-        <item name="android:drawableTint">@color/blue</item>
+        <item name="android:textColor">@color/blue_dark</item>
+        <item name="android:drawableTint">@color/blue_dark</item>
     </style>
 
-    <style name="AppTheme.Label" parent="TextAppearance.AppCompat.Small">
-        <item name="android:textColor">@color/reddish</item>
+    <style name="AppTheme.Label">
+        <item name="android:fontFamily">@font/rosatom_bold</item>
+        <item name="android:textColor">@color/blue_dark</item>
+        <item name="android:drawableTint">@color/blue_dark</item>
     </style>
 
     <style name="AppTheme.TabTitle" parent="AppTheme.CaptionSmall">
@@ -124,10 +125,14 @@
     <!-- Editable -->
 
     <style name="AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxCornerRadiusTopStart">@dimen/cr_input_text</item>
+        <!--item name="boxCornerRadiusTopStart">@dimen/cr_input_text</item>
         <item name="boxCornerRadiusTopEnd">@dimen/cr_input_text</item>
         <item name="boxCornerRadiusBottomStart">@dimen/cr_input_text</item>
-        <item name="boxCornerRadiusBottomEnd">@dimen/cr_input_text</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/cr_input_text</item-->
+        <item name="boxCornerRadiusTopStart">0dp</item>
+        <item name="boxCornerRadiusTopEnd">0dp</item>
+        <item name="boxCornerRadiusBottomStart">0dp</item>
+        <item name="boxCornerRadiusBottomEnd">0dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxBackgroundMode">outline</item>

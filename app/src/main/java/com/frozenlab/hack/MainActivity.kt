@@ -530,7 +530,7 @@ class MainActivity : AppCompatActivity(), HackApiContext, ApiCommunicator {
         }
 
         // AboutApp
-        binding.menuItemAboutApp.hint = "${getString(R.string.version)} ${com.frozenlab.extensions.BuildConfig.VERSION_NAME}"
+        binding.menuItemAboutApp.hint = "${getString(R.string.version)} ${BuildConfig.VERSION_NAME}"
         binding.menuItemAboutApp.setOnClickListener {
             router.pushControllerHorizontal(AboutAppController())
             closeDrawer()

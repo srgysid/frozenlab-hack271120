@@ -182,6 +182,10 @@
     <string name="label">Label</string>
     <string name="type_card">Тип карточки</string>
     <string name="type_message">Тип сообщения</string>
+    <string name="text_order">Текст вашей заявки</string>
+    <string name="your_order_classified">Ваше расплряжение было классифицировано как</string>
+    <string name="label_type_card">Тип карточки: </string>
+    <string name="label_type_order">Вид поручения: </string>
 
 
 </resources>

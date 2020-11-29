@@ -1,6 +1,8 @@
 package com.frozenlab.hack.conductor.controller
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +13,9 @@ import androidx.core.view.isVisible
 import androidx.viewbinding.ViewBinding
 import com.frozenlab.api.ApiHolder
 import com.frozenlab.api.toApiError
-import com.frozenlab.extensions.showToast
-import com.frozenlab.extensions.toFormattedString
+import com.frozenlab.extensions.*
 import com.frozenlab.hack.BuildConfig
+import com.frozenlab.hack.MainActivity
 import com.frozenlab.hack.Preferences
 import com.frozenlab.hack.R
 import com.frozenlab.hack.api.ClassifierApi
@@ -22,6 +24,8 @@ import com.frozenlab.hack.api.requests.CreateOrderRequest
 import com.frozenlab.hack.api.requests.TextRequest
 import com.frozenlab.hack.conductor.controller.base.BaseController
 import com.frozenlab.hack.databinding.ControllerIssueCreateBinding
+import com.frozenlab.hack.databinding.PopupClassificationResultBinding
+import com.frozenlab.hack.databinding.PopupInputIssueByVoiceBinding
 import com.frozenlab.ui.addTextWatcherForDisablingError
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -32,6 +36,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class OrderCreateController: BaseController {
+
+    companion object {
+        private const val CLASSIFICATION_CHECK_INTERVAL = 300L
+    }
 
     private var textOrder: String? = null
 
@@ -63,6 +71,10 @@ class OrderCreateController: BaseController {
     )
 
     private val orderApi = apiOrderHolder.api as ClassifierApi
+
+    private val classificationHandler = Handler()
+    private var classifiedCard = false
+    private var classifiedOrder = false
 
     private var selectedTypeCard: TypeCard? = null
         set(value) {
@@ -170,6 +182,7 @@ class OrderCreateController: BaseController {
         }
 
         textOrder?.let {
+            classificationHandler.post(classificationChecker)
             classifyTypeCard()
             classifyTypeOrder()
             binding.editableDescription.text = it
@@ -408,6 +421,48 @@ class OrderCreateController: BaseController {
         }
     }
 
+    private val classificationChecker = object: Runnable {
+        override fun run() {
+
+            if(classifiedCard && classifiedOrder) {
+
+                showClassificationResult()
+
+                classificationHandler.removeCallbacks(this)
+                return
+            }
+
+            classificationHandler.postDelayed(this, CLASSIFICATION_CHECK_INTERVAL)
+        }
+    }
+
+    private fun showClassificationResult() {
+        val popupBinding = PopupClassificationResultBinding.inflate(mainActivity.layoutInflater, null, false)
+        val dialog  = AlertDialog.Builder(mainActivity)
+            .setView(popupBinding.root)
+            .create()
+
+        popupBinding.imageClose.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        popupBinding.buttonContinue.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        popupBinding.textOrder.text = textOrder
+
+        selectedTypeCard?.let {
+            popupBinding.textTypeCard.setText(it.titleId)
+        }
+
+        selectedTypeOrder?.let {
+            popupBinding.textTypeOrder.text = it.title
+        }
+
+        dialog.show()
+    }
+
     private fun classifyTypeCard() {
 
         val request = TextRequest().apply {
@@ -420,6 +475,7 @@ class OrderCreateController: BaseController {
                     return@apiRequest
                 val topValue = list[0]
                 selectedTypeCard = TypeCard.values().find { it.id == topValue.value }
+                classifiedCard = true
             },
             showLoading = false
         )
@@ -438,6 +494,7 @@ class OrderCreateController: BaseController {
                     return@apiRequest
                 val topValue = list[0]
                 selectedTypeOrder = mainActivity.typesOrders.find { it.id == topValue.value }
+                classifiedOrder = true
             },
             showLoading = false
         )

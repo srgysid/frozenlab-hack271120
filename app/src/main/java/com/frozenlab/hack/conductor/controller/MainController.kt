@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.viewbinding.ViewBinding
 import com.frozenlab.extensions.pushControllerHorizontal
+import com.frozenlab.extensions.showToast
 import com.frozenlab.hack.Preferences
 import com.frozenlab.hack.R
 import com.frozenlab.hack.api.models.OrderFlowType
@@ -42,6 +43,7 @@ import java.lang.StringBuilder
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
+import kotlin.system.exitProcess
 
 class MainController: BaseController {
 
@@ -54,9 +56,10 @@ class MainController: BaseController {
         private const val WEB_SOCKET_CLOSE_NORMAL_REASON = "finished"
         private const val WEB_SOCKET_BUFFER_SIZE         = 8192
 
+        private const val DELAY_BEFORE_EXIT = 3000L
+
         private const val KEY_SAVED_TAB = "key_hack_tab"
     }
-
 
     constructor(): super()
     constructor(args: Bundle): super(args)
@@ -75,6 +78,8 @@ class MainController: BaseController {
 
     private lateinit var popupBinding: PopupInputIssueByVoiceBinding
     private lateinit var popupDialog: AlertDialog
+
+    private var askBeforeExit: Boolean = true
 
     override val binding: ControllerMainBinding get() = _binding!! as ControllerMainBinding
 
@@ -118,6 +123,7 @@ class MainController: BaseController {
         webSocket?.cancel()
     }
 
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(KEY_SAVED_TAB, currentTab.name)
@@ -135,6 +141,19 @@ class MainController: BaseController {
 
     override fun onSaveViewState(view: View, outState: Bundle) {
         super.onSaveViewState(view, outState)
+        outState.putString(KEY_SAVED_TAB, currentTab.name)
+    }
+
+    override fun handleBack(): Boolean {
+
+        if(askBeforeExit) {
+            mainActivity.showToast(R.string.ask_before_exit)
+            askBeforeExit = false
+            Handler().postDelayed({ askBeforeExit = true }, DELAY_BEFORE_EXIT)
+            return true
+        } else {
+            exitProcess(0)
+        }
     }
 
     private val onBottomNavigationItemSelected = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
@@ -148,6 +167,9 @@ class MainController: BaseController {
     }
 
     private fun setupTabs() {
+
+        if(binding.tabLayout.tabCount > 0)
+            return
 
         binding.tabLayout.addTab(binding.tabLayout.newTab().apply {
             val tab = Tab.NEW
@@ -266,6 +288,10 @@ class MainController: BaseController {
         popupDialog  = AlertDialog.Builder(mainActivity)
             .setView(popupBinding.root)
             .create()
+
+        popupBinding.imageClose.setOnClickListener {
+            popupDialog.dismiss()
+        }
 
         popupBinding.buttonInput.setOnClickListener {
             popupDialog.dismiss()
