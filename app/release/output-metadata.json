@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 2,
-      "versionName": "1.0.1",
-      "outputFile": "hack112020-1.0.1-release.apk"
+      "versionCode": 3,
+      "versionName": "1.0.2",
+      "outputFile": "hack112020-1.0.2-release.apk"
     }
   ]
 }
